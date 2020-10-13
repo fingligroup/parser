@@ -98,7 +98,7 @@ class MediasferaBaseParser
             return new NewsPostItem(
                 NewsPostItem::TYPE_IMAGE,
                 null,
-                UriResolver::resolve($src, static::SITE_URL)
+                static::resolveUri($src)
             );
         }
 
@@ -322,30 +322,29 @@ class MediasferaBaseParser
 
         $items = [];
 
-        $_html = $node->html();
-
-        $html = strip_tags($_html, $allow_tags);
+        $html = strip_tags($node->html(), $allow_tags);
 
         if(!$html) {
-            var_dump('Empty node HTML' . $node->nodeName() . 'original HTML');
-            var_dump($_html);
-
+            //var_dump('Empty node HTML' . $node->nodeName() . 'original HTML');
             return [];
-            //throw new \Exception('Empty node HTML' . $node->nodeName());
         }
 
-        $node = new Crawler($html);
+        $node = new Crawler('<body><div>' . $html . '</div></body>');
 
-        $node->children('body > p > *')->reduce(function (Crawler $node) use (&$html, &$items) {
+        $node->children('body > div > *')->reduce(function (Crawler $node) use (&$html, &$items) {
 
             $nodeHtml = $node->outerHtml();
 
             $chunks = explode($nodeHtml, $html, 2);
 
-            $items[] = new NewsPostItem(
-                NewsPostItem::TYPE_TEXT,
-                trim(array_shift($chunks))
-            );
+            $item = trim(array_shift($chunks));
+
+            if($item) {
+                $items[] = new NewsPostItem(
+                    NewsPostItem::TYPE_TEXT,
+                    $item
+                );
+            }
 
             array_push($items, ...(static::parseNode($node)));
 
@@ -459,6 +458,7 @@ class MediasferaBaseParser
         return null;
     }
 
+
     protected static function checkResponseCode(Curl $curl) : void
     {
         $code = $curl->responseCode ?? null;
@@ -466,5 +466,16 @@ class MediasferaBaseParser
         if ($code < 200 || $code >= 400) {
             throw new \Exception('Can\'t open url ' . $curl->getUrl());
         }
+    }
+
+
+    protected static function resolveUri(string $uri): string
+    {
+        $uri = UriResolver::resolve($uri, static::SITE_URL);
+
+        $uri = urlencode(utf8_encode($uri));
+        $uri = str_replace(["%3A", "%2F"], [":", "/"], $uri);
+
+        return $uri;
     }
 }

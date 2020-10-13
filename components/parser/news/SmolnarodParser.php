@@ -7,6 +7,7 @@ namespace app\components\parser\news;
 use app\components\mediasfera\MediasferaBaseParser;
 use app\components\Helper;
 use app\components\parser\NewsPost;
+use app\components\parser\NewsPostItem;
 use app\components\parser\ParserInterface;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -67,13 +68,15 @@ class SmolnarodParser extends MediasferaBaseParser implements ParserInterface
 
         $listCrawler->filter(self::NEWSLIST_POST)->slice(0, self::NEWS_LIMIT)->each(function (Crawler $node) use (&$posts) {
 
+            $img = static::getImageUri(static::getNodeAttr($node, 'src', self::NEWSLIST_IMG));
+
             $post = new NewsPost(
                 static::class,
                 static::getNodeText($node, self::NEWSLIST_TITLE),
                 static::getNodeText($node, self::NEWSLIST_DESC),
                 static::getNodeDate($node, self::NEWSLIST_DATE),
                 static::getNodeAttr($node, 'href', self::NEWSLIST_LINK),
-                static::getNodeAttr($node, 'src', self::NEWSLIST_IMG)
+                static::resolveUri($img)
             );
 
             $curl = Helper::getCurl();
@@ -115,5 +118,31 @@ class SmolnarodParser extends MediasferaBaseParser implements ParserInterface
         });
 
         return $posts;
+    }
+
+    protected static function getImageUri($uri) : string
+    {
+        $query = parse_url($uri, PHP_URL_QUERY);
+        parse_str($query, $params);
+        $src = $params['src'] ?? null;
+
+        if($src) {
+            return $src;
+        }
+
+        return $uri;
+    }
+
+    public static function getPostItemImage(Crawler $node, bool $fromStyle = false) : ?NewsPostItem
+    {
+        $item = parent::getPostItemImage($node, $fromStyle);
+
+        if($item) {
+            $item->image = static::getImageUri(urldecode($item->image));
+
+            return $item;
+        }
+
+        return null;
     }
 }
