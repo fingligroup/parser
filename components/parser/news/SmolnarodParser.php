@@ -133,12 +133,13 @@ class SmolnarodParser extends MediasferaBaseParser implements ParserInterface
         return $uri;
     }
 
+
     public static function getPostItemImage(Crawler $node, bool $fromStyle = false) : ?NewsPostItem
     {
         $item = parent::getPostItemImage($node, $fromStyle);
 
         if($item) {
-            $item->image = static::getImageUri(urldecode($item->image));
+            $item->image = static::getImageUri($item->image);
 
             return $item;
         }

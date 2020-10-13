@@ -473,7 +473,7 @@ class MediasferaBaseParser
     {
         $uri = UriResolver::resolve($uri, static::SITE_URL);
 
-        $uri = urlencode(utf8_encode($uri));
+        $uri = urlencode($uri);
         $uri = str_replace(["%3A", "%2F"], [":", "/"], $uri);
 
         return $uri;
