@@ -136,12 +136,35 @@ class SmolnarodParser extends MediasferaBaseParser implements ParserInterface
 
     public static function getPostItemImage(Crawler $node, bool $fromStyle = false) : ?NewsPostItem
     {
-        $item = parent::getPostItemImage($node, $fromStyle);
+        if($fromStyle) {
 
-        if($item) {
-            $item->image = static::getImageUri($item->image);
+            $style = $node->attr('style');
 
-            return $item;
+            if(!$style) {
+                return null;
+            }
+
+            $pattern = '/(background-image|background)\s*:\s*url\((?\'img\'[^)]*)\)/';
+
+            preg_match_all($pattern, $style, $matches);
+
+            if(count($matches['img'])) {
+                $src = trim(end($matches['img']), ' \'"');
+            } else {
+                $src = null;
+            }
+        } else {
+            $src = $node->attr('src') ?? $node->attr('data-src');
+        }
+
+        if($src) {
+            $src = static::getImageUri($src);
+
+            return new NewsPostItem(
+                NewsPostItem::TYPE_IMAGE,
+                null,
+                static::resolveUri($src)
+            );
         }
 
         return null;
