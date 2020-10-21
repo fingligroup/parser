@@ -2,7 +2,7 @@
 /**
  * Стартовый шаблон для разработчика
  *
- * Данный класс предназначается для нужд шаблонизации
+ * Данный класс предназначается для нужд шаблонизации.
  *
  * @author FingliGroup <info@fingli.ru>
  * @author Roman Goncharenya <goncharenya@gmail.com>
