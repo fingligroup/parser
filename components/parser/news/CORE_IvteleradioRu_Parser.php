@@ -25,7 +25,7 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
     // поддерживаемая версия ядра
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = false;
 
     public function __construct()
     {
@@ -33,14 +33,14 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'       => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 3,
+            'itemsLimit' => 10,
 
             // настройки сайта
-            'site'    => [
+            'site'       => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://ivteleradio.ru',
@@ -73,7 +73,7 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'     => [
+            'rss'        => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/rss',
@@ -103,53 +103,18 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
                 'element-date'        => 'pubDate',
             ],
 
-            // настройки витрины (режим HTML)
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[type=image][url]',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
-            ],
-
             // настройка карточки элемента
-            'element' => [
+            'element'    => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => 'section.newsitem_main_block',
+                'container'           => 'section.newsitem_main_block, .vesti_page_main_block',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => 'article',
+                'element-text'        => 'article.newsitem_text, .vesti_page_video_block',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
