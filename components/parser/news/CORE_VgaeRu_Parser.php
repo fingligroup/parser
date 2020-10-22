@@ -33,14 +33,14 @@ class CORE_VgaeRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'       => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //           'itemsLimit' => 3,
+            'itemsLimit' => 10,
 
             // настройки сайта
-            'site'    => [
+            'site'       => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://vgae.ru',
@@ -73,7 +73,7 @@ class CORE_VgaeRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'     => [
+            'rss'        => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/rss.xml',
@@ -104,7 +104,7 @@ class CORE_VgaeRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим HTML)
-            'list'    => [
+            'list'       => [
                 // URL где находится витрина
                 // (обязательный)
                 'url'                 => '',
@@ -139,17 +139,17 @@ class CORE_VgaeRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройка карточки элемента
-            'element' => [
+            'element'    => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => 'html',
+                'container'           => '.box.box-primary[itemtype="http://schema.org/NewsArticle"]',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => '#dle-content > div:nth-child(4) > div > div > div.box-body > div.news',
+                'element-text'        => '.news',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
