@@ -26,7 +26,7 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = false;
 
     public function __construct()
     {
@@ -147,7 +147,7 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.node',
+                'container'           => '.hentry',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
@@ -175,7 +175,7 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.element-invisible ',
             ]
         ];
 
