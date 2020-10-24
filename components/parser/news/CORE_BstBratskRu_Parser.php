@@ -26,7 +26,7 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,7 +38,7 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 4,
 
             // настройки сайта
             'site'    => [
@@ -56,7 +56,7 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0300',
+                'time_zone'   => '+0800',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -101,43 +101,8 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
+                //                'element-date'        => '',
                 'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -156,11 +121,11 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
-                'element-date'        => '',
+                //                                'element-date'        => 'time.post-date',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '#content-main span.p',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -176,6 +141,10 @@ class CORE_BstBratskRu_Parser extends ParserCore implements ParserInterface
                 // (можно через запятую)
                 // (опционально)
                 'ignore-selectors'    => '',
+
+                // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
+                // (опционально)
+                'element-text-before' => '#content-main iframe',
             ]
         ];
 
