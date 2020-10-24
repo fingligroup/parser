@@ -140,7 +140,7 @@ class CORE_InfpolRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'h4[itemprop="description"], .media',
+                'ignore-selectors'    => 'h4[itemprop="description"], .media, p.caption',
                  //p.caption:nth-child(3)
             ]
         ];
