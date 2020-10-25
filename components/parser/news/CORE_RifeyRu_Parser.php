@@ -30,7 +30,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1 ;
+    protected const DEBUG = 0 ;
 //    protected const DEBUG_MODE = 'talkative';
 
     public function __construct()
@@ -46,7 +46,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                        'itemsLimit' => 3,
+             //           'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -64,7 +64,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0300',
+                'time_zone'   => '+0100',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -74,7 +74,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
                 // y - год, две цифры
                 // H - час
                 // i - минуты
-                'date_format' => 'd.m.Y H:i',
+                'date_format' => 'd.m, H:i',
 
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
@@ -140,7 +140,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
 
                     // css-селектор даты создания новости
                     // (опционально)
-                    'element-date'        => '.submitted',
+                    'element-date'        => '',
 
                     // css селектор для описания элемента
                     // (опционально)
@@ -159,7 +159,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.social, .submitted.my-2',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
