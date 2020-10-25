@@ -30,7 +30,8 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 3;
+    protected const DEBUG = 1 ;
+//    protected const DEBUG_MODE = 'talkative';
 
     public function __construct()
     {
@@ -55,8 +56,8 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
-                'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
-                //                'user_agent'  => 'bot',
+//                'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
+                                'user_agent'  => 'bot',
 
                 // часовой пояс UTC.
                 // Чтобы определить часовой пояс, нужно зайти на https://time.is/Moscow и выбрать ближайший крупный город к которому относится сайт
@@ -128,18 +129,18 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.container',
+                'container'           => '.page-news .columns',
 
                     // ** дальнейшие css-селекторы указываются относительно container
 
                     // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                     // (можно несколько через запятую, если есть разные шаблоны новости)
                     // (обязательный)
-                    'element-text'        => '.is-two-thirds',
+                    'element-text'        => '.column:first-child',
 
                     // css-селектор даты создания новости
                     // (опционально)
-                    'element-date'        => '.news-date',
+                    'element-date'        => '.submitted',
 
                     // css селектор для описания элемента
                     // (опционально)
