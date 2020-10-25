@@ -37,7 +37,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //            'itemsLimit' => 100
+                      'itemsLimit' => 5,
 
             // настройки сайта
             'site'    => [
@@ -107,7 +107,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://vesti-lipetsk.ru/novosti/',
+                'url'                 => '/novosti/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
@@ -119,7 +119,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '.news-item__link [href]',
+                'element-link'        => 'a.news-item__link[href]',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -131,7 +131,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '.news-item__image img[src]',
+                'element-image'       => '.news-item__image img[data-src]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
