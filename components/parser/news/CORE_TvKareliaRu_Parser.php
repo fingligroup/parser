@@ -140,7 +140,7 @@ class CORE_TvKareliaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.mejs-container, #mep_0, .mejs-inner',
+                'ignore-selectors'    => '.wp-audio-shortcode',
             ]
         ];
 
