@@ -18,14 +18,14 @@ use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
 // CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
-class CORE_MarimediaRu_Parser extends ParserCore implements ParserInterface
+class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = false;
 
     public function __construct()
     {
@@ -37,13 +37,13 @@ class CORE_MarimediaRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 1,
+              //          'itemsLimit' => 10,
 
             // настройки сайта
             'site'    => [
                 // протокол и домен
                 // (обязательный)
-                'url'         => 'https://www.marimedia.ru',
+                'url'         => 'https://trt-tv.ru',
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
@@ -76,7 +76,7 @@ class CORE_MarimediaRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/news/rss/',
+                'url'                 => '/feed/',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
@@ -110,12 +110,12 @@ class CORE_MarimediaRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.news_detail',
+                'container'           => '.jeg_main_content',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => '.news-text',
+                'element-text'        => '.content-inner',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
@@ -128,17 +128,17 @@ class CORE_MarimediaRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '.news-additional-info-block img[src]',
+                'element-image'       => '.jeg_featured featured_image img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                 // (опционально)
-                'element-quote'       => '',
+                'element-quote'       => 'blockquote',
 
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.jeg_post_tags',
             ]
         ];
 
