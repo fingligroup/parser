@@ -14,7 +14,7 @@
     "rowbot/punycode": "^1.0",
     "ext-dom": "*",
     "symfony/css-selector": "^5.1",
-    "fingli/parser-core": "dev-main"
+    "wapmorgan/time-parser": "^2.0"
   },
   "config": {
     "process-timeout": 1800,
