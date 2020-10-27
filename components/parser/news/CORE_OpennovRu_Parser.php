@@ -195,7 +195,7 @@ class CORE_OpennovRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-before' => '',a
+                'element-text-before' => '',
             ]
         ];
 
