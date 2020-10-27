@@ -30,7 +30,7 @@ class CORE_MoscowPostSu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 2;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -45,7 +45,7 @@ class CORE_MoscowPostSu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                       'itemsLimit' => 5,
+                    //    'itemsLimit' => 10,
 
             // настройки сайта
             'site'    => [
@@ -110,7 +110,7 @@ class CORE_MoscowPostSu_Parser extends ParserCore implements ParserInterface
 
                         // css селектор для описания элемента
                         // (опционально)
-                        'element-description' => '#author a p',
+                        'element-description' => '#author p',
 
                         // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                         // (опционально)
