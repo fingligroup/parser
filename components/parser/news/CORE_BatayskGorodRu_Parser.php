@@ -25,7 +25,7 @@ class CORE_BatayskGorodRu_Parser extends ParserCore implements ParserInterface
     // поддерживаемая версия ядра
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -168,7 +168,7 @@ class CORE_BatayskGorodRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                 // (опционально)
-                'element-quote'       => '',
+                'element-quote'       => '.js-mediator-article i',
 
                 // игнорируемые css-селекторы
                 // (можно через запятую)
