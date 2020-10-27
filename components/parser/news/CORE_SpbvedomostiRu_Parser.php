@@ -153,7 +153,7 @@ class CORE_SpbvedomostiRu_Parser extends ParserCore implements ParserInterface
                     // css-селектор для цитаты
                     // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                     // (опционально)
-                    'element-quote'       => '.article i',
+                    'element-quote'       => '.article p b i',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
