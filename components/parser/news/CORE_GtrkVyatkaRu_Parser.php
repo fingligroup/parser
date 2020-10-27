@@ -176,7 +176,7 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                 // (опционально)
-                'element-quote'       => '',
+                'element-quote'       => '.fullstory-text b',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
