@@ -26,7 +26,7 @@ class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,7 +38,7 @@ class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-             //           'itemsLimit' => 1,
+            //           'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -140,6 +140,11 @@ class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
                 // (можно через запятую)
                 // (опционально)
                 'ignore-selectors'    => '',
+
+
+                // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
+                // (опционально)
+                'element-text-before' => '.gallery-wrapper',
             ]
         ];
 
