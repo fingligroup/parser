@@ -26,7 +26,7 @@ class CORE_InfpolRu_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -140,8 +140,8 @@ class CORE_InfpolRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'h4[itemprop="description"], .media, p.caption',
-                 //p.caption:nth-child(3)
+                'ignore-selectors'    => 'h4[itemprop="description"], .media, p.caption, .incut',
+                //p.caption:nth-child(3)
             ]
         ];
 
