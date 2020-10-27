@@ -45,7 +45,7 @@ class CORE_RepublicRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                    //    'itemsLimit' => 1,
+            //    'itemsLimit' => 5,
 
             // настройки сайта
             'site'    => [
