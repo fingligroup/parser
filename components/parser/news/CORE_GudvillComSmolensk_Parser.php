@@ -30,7 +30,7 @@ class CORE_GudvillComSmolensk_Parser extends ParserCore implements ParserInterfa
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -116,44 +116,6 @@ class CORE_GudvillComSmolensk_Parser extends ParserCore implements ParserInterfa
                     'element-date'        => 'pubDate',
             ],
 
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '',
-
-                        // ** дальнейшие css-селекторы указываются относительно element
-
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
-            ],
-
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
             'element' => [
@@ -181,7 +143,7 @@ class CORE_GudvillComSmolensk_Parser extends ParserCore implements ParserInterfa
                     // css селектор для получения картинки
                     // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                     // (опционально)
-                    'element-image'       => '.post-featured-image[src]',
+                    'element-image'       => '.post-featured-image .post-img[style]',
 
                     // css-селектор для цитаты
                     // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -191,7 +153,7 @@ class CORE_GudvillComSmolensk_Parser extends ParserCore implements ParserInterfa
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.the_champ_sharing_container the_champ_horizontal_sharing, .gudvi-after-content, .gudvi-after-content_4',
+                'ignore-selectors'    => '.the_champ_sharing_container, .gudvi-after-content, .gudvi-after-content_4',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
