@@ -45,7 +45,7 @@ class CORE_MoscowPostSu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                    //    'itemsLimit' => 10,
+            //    'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
