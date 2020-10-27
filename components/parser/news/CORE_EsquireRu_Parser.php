@@ -41,7 +41,7 @@ class CORE_EsquireRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //            'itemsLimit' => 10,
+            //    'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
