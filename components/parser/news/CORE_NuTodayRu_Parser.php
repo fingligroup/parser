@@ -26,7 +26,7 @@ class CORE_NuTodayRu_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -56,7 +56,7 @@ class CORE_NuTodayRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0000',
+                'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -71,6 +71,9 @@ class CORE_NuTodayRu_Parser extends ParserCore implements ParserInterface
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
+
+                // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
+                'pause'       => 2,
             ],
 
             // настройки витрины (режим RSS)
