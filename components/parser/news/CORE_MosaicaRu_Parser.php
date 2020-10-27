@@ -83,39 +83,6 @@ class CORE_MosaicaRu_Parser extends ParserCore implements ParserInterface
                 //                'pause'       => 0,
             ],
 
-            // настройки витрины (режим RSS)
-            'rss'     => [
-                // относительный URL где находится RSS
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для элемента витрины (желательно от корня)
-                // (обязательный)
-                'element'             => 'rss > channel > item',
-
-                    // ** дальнейшие css-селекторы указываются относительно element
-
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
-
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link',
-
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => 'description',
-
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => 'enclosure[url]',
-
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => 'pubDate',
-            ],
-
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
             'list'    => [
@@ -151,7 +118,7 @@ class CORE_MosaicaRu_Parser extends ParserCore implements ParserInterface
 
                         // css селектор для даты элемента
                         // (опционально)
-                        'element-date'        => '',
+                        'element-date'        => '.img-container .date',
             ],
 
             // настройка карточки элемента
@@ -172,7 +139,7 @@ class CORE_MosaicaRu_Parser extends ParserCore implements ParserInterface
 
                     // css-селектор даты создания новости
                     // (опционально)
-                    'element-date'        => 'a[href*=calendar]',
+                    'element-date'        => '',
 
                     // css селектор для описания элемента
                     // (опционально)
@@ -186,7 +153,7 @@ class CORE_MosaicaRu_Parser extends ParserCore implements ParserInterface
                     // css-селектор для цитаты
                     // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                     // (опционально)
-                    'element-quote'       => '.longread-quote-long',
+                    'element-quote'       => '.article-container p > em',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
