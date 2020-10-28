@@ -30,7 +30,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -110,7 +110,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
 
                         // css селектор для описания элемента
                         // (опционально)
-                        'element-description' => '',
+                        'element-description' => '.article__anons',
 
                         // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                         // (опционально)
@@ -158,7 +158,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.yandex_zen_link, .article__also, .article__insert-inner',
+                'ignore-selectors'    => '.article__insert, .yandex_zen_link, .article__also, .article__insert-inner, .article__anons',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
