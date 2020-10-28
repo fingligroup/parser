@@ -138,7 +138,7 @@ class CORE_KrukovoVedomostiRu_Parser extends ParserCore implements ParserInterfa
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '#ap_news_detail_page_tags, .ap_news_detail_page_txt a:last-child',
+                'ignore-selectors'    => '#ap_news_detail_page_tags, .ap_news_detail_page_txt a:last-child, a[href^="/print.php?"]',
             ]
         ];
 
