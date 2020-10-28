@@ -37,7 +37,7 @@ class CORE_BizgazRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                       'itemsLimit' => 10,
+            //           'itemsLimit' => 10,
 
             // настройки сайта
             'site'    => [
