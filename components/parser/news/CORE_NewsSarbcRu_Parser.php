@@ -30,7 +30,7 @@ class CORE_NewsSarbcRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -45,7 +45,7 @@ class CORE_NewsSarbcRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                        'itemsLimit' => 3,
+//                        'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -130,7 +130,8 @@ class CORE_NewsSarbcRu_Parser extends ParserCore implements ParserInterface
                     // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                     // (можно несколько через запятую, если есть разные шаблоны новости)
                     // (обязательный)
-                    'element-text'        => '.news-page-content',
+//                    'element-text'        => '.news-page-content',
+                    'element-text'        => '[itemprop="articleBody"]',
 
                     // css-селектор даты создания новости
                     // (опционально)
@@ -157,7 +158,7 @@ class CORE_NewsSarbcRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-before' => '',
+                'element-text-before' => '.news_gallery, .news-page-item iframe',
             ]
         ];
 
