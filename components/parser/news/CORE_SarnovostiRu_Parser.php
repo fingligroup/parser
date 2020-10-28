@@ -144,7 +144,7 @@ class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-before' => '.gallery-wrapper',
+                'element-text-after' => '.gallery-wrapper',
             ]
         ];
 
