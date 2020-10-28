@@ -101,7 +101,7 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -120,7 +120,7 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
-                'element-date'        => '',
+                'element-date'        => 'time.date',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
@@ -129,7 +129,7 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => 'figure img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -139,7 +139,7 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => 'p.datetime',
             ]
         ];
 
