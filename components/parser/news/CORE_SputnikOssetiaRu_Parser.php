@@ -26,15 +26,7 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-<<<<<<< Updated upstream
-    protected const DEBUG = 2;
-=======
-    // 0 - отключен
-    // 1 - включен
-    // 2 - включен (очень подробный режим)
-    // 3 - режим "зануда"
-    protected const DEBUG = 1;
->>>>>>> Stashed changes
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -45,16 +37,8 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
             'mode'    => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
-<<<<<<< Updated upstream
             // (опционально)
-            //            'itemsLimit' => 100,
-=======
-            // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
-            // в остальных случаях жестко задается ядром
-            //
-            // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
->>>>>>> Stashed changes
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -87,12 +71,6 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
-<<<<<<< Updated upstream
-=======
-
-                // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
-                //                'pause'       => 0,
->>>>>>> Stashed changes
             ],
 
             // настройки витрины (режим RSS)
@@ -105,7 +83,6 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'element'             => 'rss > channel > item',
 
-<<<<<<< Updated upstream
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
                 'element-title'       => 'title',
@@ -125,93 +102,6 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
                 'element-date'        => 'pubDate',
-=======
-                    // ** дальнейшие css-селекторы указываются относительно element
-
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
-
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link',
-
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => 'description',
-
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => 'enclosure[url]',
-
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => 'pubDate',
->>>>>>> Stashed changes
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-<<<<<<< Updated upstream
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
-=======
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '',
-
-                        // ** дальнейшие css-селекторы указываются относительно element
-
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
->>>>>>> Stashed changes
             ],
 
             // настройка карточки элемента
@@ -219,7 +109,6 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
             'element' => [
 
                 // css-селектор для контейнера карточки
-<<<<<<< Updated upstream
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
                 'container'           => '.l-maincolumn.m-static',
@@ -250,46 +139,16 @@ class CORE_SputnikOssetiaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
-=======
-                // (можно несколько через запятую, если есть разные шаблоны новости)
-                // (обязательный)
-                'container'           => '.l-main.m-oh',
+                //                'ignore-selectors'    => '.l-wrap.m-oh.l-wrapper,b-banner.m-banner-12,b-article__likes.js-likes,b-banner.m-banner-37.m-mb20,.l-sidebar ',
+                'ignore-selectors'    => '.b-inject.m-inject-min',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
-
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.l-maincolumn.m-static',
-
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
-
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
-
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
-
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
-
-                // игнорируемые css-селекторы (будут вырезаться из результата)
-                // (можно несколько через запятую)
+                // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
-                'ignore-selectors'    => '.l-wrap.m-oh.l-wrapper,b-banner.m-banner-12,b-article__likes.js-likes,b-banner.m-banner-37.m-mb20,.l-sidebar',
+                'element-text-before' => '',
 
-                // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
+                // css-селекторы которые будут вставлятся в конец текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
-                'element-text-before' => '.b-article__media-video',
->>>>>>> Stashed changes
+                'element-text-after'  => '#gallery',
             ]
         ];
 
