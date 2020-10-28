@@ -30,7 +30,7 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,20 +38,20 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'desktop',
+            'mode'    => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
                 // протокол и домен
                 // (обязательный)
-                'url'         => 'https://hightech.fm/',
+                'url'         => 'https://hightech.fm',
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
@@ -87,7 +87,7 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '',
+                'url'                 => '/feed',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
@@ -109,49 +109,11 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для картинки элемента
                     // (опционально)
-                    'element-image'       => 'enclosure[url]',
+                    'element-image'       => '',
 
                     // css селектор для даты элемента
                     // (опционально)
                     'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => 'https://hightech.fm/rubrics/news',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '.page__news-feed',
-
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '.news-feed__item ',
-
-                        // ** дальнейшие css-селекторы указываются относительно element
-
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => 'a[href]',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '.entry__title',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '.entry__picture img[src]',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -161,7 +123,7 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.page-content__main',
+                'container'           => '.ajax-post__container',
 
                     // ** дальнейшие css-селекторы указываются относительно container
 
@@ -181,7 +143,7 @@ class CORE_HightechFm_Parser extends ParserCore implements ParserInterface
                     // css селектор для получения картинки
                     // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                     // (опционально)
-                    'element-image'       => '',
+                    'element-image'       => '.hero-main__picture img[src]',
 
                     // css-селектор для цитаты
                     // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
