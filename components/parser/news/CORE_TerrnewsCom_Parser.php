@@ -38,7 +38,7 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 10,
+                        'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -56,7 +56,7 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0300',
+                //'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -135,7 +135,7 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                 // (опционально)
-                'element-quote'       => '',
+                'element-quote'       => '.quote',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
