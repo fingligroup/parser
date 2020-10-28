@@ -25,7 +25,7 @@ class CORE_KrukovoVedomostiRu_Parser extends ParserCore implements ParserInterfa
     // поддерживаемая версия ядра
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -103,41 +103,6 @@ class CORE_KrukovoVedomostiRu_Parser extends ParserCore implements ParserInterfa
                 'element-date'        => 'pubDate',
             ],
 
-            // настройки витрины (режим HTML)
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
-            ],
-
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости)
             'element' => [
@@ -173,7 +138,7 @@ class CORE_KrukovoVedomostiRu_Parser extends ParserCore implements ParserInterfa
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '#ap_news_detail_page_tags',
+                'ignore-selectors'    => '#ap_news_detail_page_tags, .ap_news_detail_page_txt a:last-child',
             ]
         ];
 
