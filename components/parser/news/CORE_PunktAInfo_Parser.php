@@ -30,7 +30,7 @@ class CORE_PunktAInfo_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
