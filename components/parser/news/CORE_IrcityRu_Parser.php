@@ -27,7 +27,7 @@ class CORE_IrcityRu_Parser extends ParserCore implements ParserInterface
     // для подделки запроса к URL нужно добавить элемент массива в файле emulateHtml.php
     protected const EMULATE_MODE = false;
     // дебаг-режим (только для разработки)
-    protected const DEBUG = true;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -110,7 +110,7 @@ class CORE_IrcityRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.chitaru__article-body.article__is-news',
+                'container'           => '.chitaru__article-body',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
@@ -138,7 +138,7 @@ class CORE_IrcityRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'img[src="//s.zbp.ru/v5/null.gif"]',
+                'ignore-selectors'    => 'img[src="//s.zbp.ru/v5/null.gif"], time[itemprop="dateCreated"]',
             ]
         ];
 
