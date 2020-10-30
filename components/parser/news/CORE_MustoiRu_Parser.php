@@ -30,7 +30,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -45,7 +45,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -105,7 +105,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для описания элемента
                     // (опционально)
-                    'element-description' => 'description',
+                    'element-description' => '',
 
                     // css селектор для картинки элемента
                     // (опционально)
@@ -181,7 +181,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
                     // css селектор для получения картинки
                     // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                     // (опционально)
-                    'element-image'       => '.td-post-featured-image img[src]',
+                    'element-image'       => 'img.entry-thumb[src]',
 
                     // css-селектор для цитаты
                     // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
