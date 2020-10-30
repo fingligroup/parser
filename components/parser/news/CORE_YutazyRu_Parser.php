@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 2 approved roman
 class CORE_YutazyRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -93,27 +93,27 @@ class CORE_YutazyRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'element'             => 'feed > entry',
 
-                    // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
+                // css селектор для названия элемента
+                // (обязательный)
+                'element-title'       => 'title',
 
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link[href]',
+                // css селектор для ссылки
+                // (обязательный)
+                'element-link'        => 'link[href]',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
 
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для картинки элемента
+                // (опционально)
+                'element-image'       => '',
 
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => '',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -125,30 +125,30 @@ class CORE_YutazyRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.layout__body',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.page-main',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.page-main',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => 'a.page-main__publish__date',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => 'a.page-main__publish__date',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => 'p.page-main__lead',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => 'p.page-main__lead',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => 'img.page-main__img[src]',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => 'img.page-main__img[src]',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
