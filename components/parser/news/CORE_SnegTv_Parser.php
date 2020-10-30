@@ -30,7 +30,7 @@ class CORE_SnegTv_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -116,44 +116,6 @@ class CORE_SnegTv_Parser extends ParserCore implements ParserInterface
                     'element-date'        => 'pubDate',
             ],
 
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '',
-
-                        // ** дальнейшие css-селекторы указываются относительно element
-
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
-            ],
-
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
             'element' => [
@@ -191,7 +153,7 @@ class CORE_SnegTv_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'noscript',
+                'ignore-selectors'    => 'noscript, a[href^="https://zen.yandex.ru/media/snegtv/sostoianie-nestoianiia-rubl-upal-i-bolshe-ne-podni-5f97a05d1772f52b50fd2e64"], .the_champ_sharing_container, .meta-tags, img[src^="https://upload.wikimedia.org/wikipedia/commons/1/17/Yandex_Zen_Logo.png"]',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
