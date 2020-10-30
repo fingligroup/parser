@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 2 approved roma
 class CORE_NovorabRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -63,7 +63,7 @@ class CORE_NovorabRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0000',
+                'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
