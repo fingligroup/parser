@@ -105,7 +105,7 @@ class CORE_Ge1Ru_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для описания элемента
                     // (опционально)
-                    'element-description' => 'description',
+                    'element-description' => '',
 
                     // css селектор для картинки элемента
                     // (опционально)
