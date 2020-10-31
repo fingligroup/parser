@@ -121,7 +121,7 @@ class CORE_PunktAInfo_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://punkt-a.info/news/',
+                'url'                 => '/news/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
