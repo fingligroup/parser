@@ -51,11 +51,11 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
             'site'    => [
                 // протокол и домен
                 // (обязательный)
-                'url'         => 'http://simple-news.ru',
+                'url'                         => 'http://simple-news.ru',
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
-                'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
+                'user_agent'                  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
                 //                'user_agent'  => 'bot',
 
                 // часовой пояс UTC.
@@ -63,7 +63,7 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0300',
+                'time_zone'                   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -73,7 +73,7 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
                 // y - год, две цифры
                 // H - час
                 // i - минуты
-                'date_format' => 'd.m.Y H:i',
+                'date_format'                 => 'd.m.Y H:i',
 
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
@@ -81,6 +81,9 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
 
                 // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
                 //                'pause'       => 0,
+
+                // заменяем переводы строк пробелами (есть сайты, где не ставят пробелы после перевода строки)
+                'transform_new_line_to_space' => true
             ],
 
 
