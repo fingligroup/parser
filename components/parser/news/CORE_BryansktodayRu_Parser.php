@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_BryansktodayRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -124,7 +124,7 @@ class CORE_BryansktodayRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.itemIntroText',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
