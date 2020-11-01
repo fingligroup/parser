@@ -45,7 +45,7 @@ class CORE_BootlegerRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 1,
+            //            'itemsLimit' => 2,
 
             // настройки сайта
             'site'    => [
@@ -127,6 +127,12 @@ class CORE_BootlegerRu_Parser extends ParserCore implements ParserInterface
                 // URL где находится витрина
                 // (обязательный)
                 'url'                 => '/category/novosti',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /category/novosti/page/$page
+                // (опциональный)
+                'url-page'            => '/category/novosti/page/$page',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
