@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_HightechPlus_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -111,12 +111,14 @@ class CORE_HightechPlus_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.page-article__content___31Kxq',
+                //                'container'           => '.page-article__content___31Kxq',
+                'container'           => '[itemtype="http://schema.org/NewsArticle"]',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => '.page-article__article-content___792Kr',
+                //                'element-text'        => '.page-article__article-content___792Kr',
+                'element-text'        => '#instantViewArticle',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
@@ -124,7 +126,7 @@ class CORE_HightechPlus_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => 'div[class^="lead__"]',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -139,7 +141,8 @@ class CORE_HightechPlus_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.article-information___Muge_, .social-buttons___286ii',
+                //                'ignore-selectors'    => '.article-information___Muge_, .social-buttons___286ii',
+                'ignore-selectors'    => '#instantViewSocialIcons, #instantViewSocialButtons, .fb-like, #instantViewArticleInfo, div[class^="moneyTeaser_"]',
             ]
         ];
 
