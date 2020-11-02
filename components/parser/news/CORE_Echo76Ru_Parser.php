@@ -29,7 +29,7 @@ class CORE_Echo76Ru_Parser extends ParserCore implements ParserInterface
     // 0 - отключен
     // 1 - включен
     // 2 - включен (очень подробный режим)
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
