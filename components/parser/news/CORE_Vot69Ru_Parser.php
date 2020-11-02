@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved rmn
 class CORE_Vot69Ru_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -105,7 +105,7 @@ class CORE_Vot69Ru_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для описания элемента
                     // (опционально)
-                    'element-description' => 'description',
+//                    'element-description' => 'description',
 
                     // css селектор для картинки элемента
                     // (опционально)
@@ -138,7 +138,7 @@ class CORE_Vot69Ru_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для описания элемента
                     // (опционально)
-                    'element-description' => '',
+                    'element-description' => 'p:first-child',
 
                     // css селектор для получения картинки
                     // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -153,7 +153,7 @@ class CORE_Vot69Ru_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.mistape_caption',
+                'ignore-selectors'    => '#publication_text p:first-child, .mistape_caption',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
