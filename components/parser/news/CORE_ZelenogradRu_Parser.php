@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_ZelenogradRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -38,17 +38,17 @@ class CORE_ZelenogradRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'       => 'rss',
+            'mode'    => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            'itemsLimit' => 1,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
-            'site'       => [
+            'site'    => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://www.zelenograd.ru',
@@ -84,7 +84,7 @@ class CORE_ZelenogradRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'        => [
+            'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/news/rss/all.xml',
@@ -118,19 +118,20 @@ class CORE_ZelenogradRu_Parser extends ParserCore implements ParserInterface
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element'    => [
+            'element' => [
 
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.row',
+                'container'           => '#maincontent ',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '.row__col',
+                'element-text'        => '.row__col .row',
+                //                'element-text'        => '.box.box_width_s.box_margin_l.box_width-s_b.noviktorina',
 
                 // css-селектор даты создания новости
                 // (опционально)
@@ -153,7 +154,7 @@ class CORE_ZelenogradRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.editor[style*="#709258"], .info-box, .box.box_width_s.box_margin_mm, #subscribe_rubrika_form',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
