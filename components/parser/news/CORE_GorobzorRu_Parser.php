@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_GorobzorRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -158,7 +158,7 @@ class CORE_GorobzorRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.c-page-content__content h1',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
