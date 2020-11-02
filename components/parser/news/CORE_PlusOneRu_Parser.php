@@ -88,7 +88,7 @@ class CORE_PlusOneRu_Parser extends ParserCore implements ParserInterface
             'list'       => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://plus-one.ru/news',
+                'url'                 => '/news',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
@@ -128,14 +128,15 @@ class CORE_PlusOneRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.style__ContentWrap-c3cfeg-2',
+                'container'           => '.article-js',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '.Preview__PreviewContainer-arw7ee-0',
+                //                'element-text'        => '.Preview__PreviewContainer-arw7ee-0',
+                'element-text'        => 'div[class^="Text__ShowTextField"]',
 
                 // css-селектор даты создания новости
                 // (опционально)
