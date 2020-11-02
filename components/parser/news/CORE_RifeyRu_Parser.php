@@ -30,7 +30,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1 ;
+    protected const DEBUG = 0 ;
 //    protected const DEBUG_MODE = 'talkative';
 
     public function __construct()
@@ -46,7 +46,7 @@ class CORE_RifeyRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                        'itemsLimit' => 1,
+//                        'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
