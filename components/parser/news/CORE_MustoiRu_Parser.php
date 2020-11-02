@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved roma
+// part 3 approved by rmn
 class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -116,44 +116,6 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
                     'element-date'        => 'pubDate',
             ],
 
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '',
-
-                        // ** дальнейшие css-селекторы указываются относительно element
-
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
-            ],
-
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
             'element' => [
@@ -168,7 +130,8 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
                     // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                     // (можно несколько через запятую, если есть разные шаблоны новости)
                     // (обязательный)
-                    'element-text'        => '.td-post-content',
+//                    'element-text'        => '.td-post-content',
+                    'element-text'        => '#data-io-article-url',
 
                     // css-селектор даты создания новости
                     // (опционально)
@@ -176,7 +139,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
 
                     // css селектор для описания элемента
                     // (опционально)
-                    'element-description' => '',
+                    'element-description' => '#data-io-article-url > p:first-child',
 
                     // css селектор для получения картинки
                     // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -191,7 +154,7 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '#data-io-article-url > p:first-child, .reklamo',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
