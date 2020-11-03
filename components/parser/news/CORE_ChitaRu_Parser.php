@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 3 approved by rmn
 class CORE_ChitaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -117,7 +117,7 @@ class CORE_ChitaRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.chitaru__article-body.article__is-news',
+                'container'           => '[itemtype="https://schema.org/NewsArticle"]',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
@@ -145,7 +145,7 @@ class CORE_ChitaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.hidden photo__hidden, .wonder__beacon, .article__text-author__bottom, .article__navigation-line',
+                'ignore-selectors'    => '.article__title-photo, .hidden photo__hidden, .wonder__beacon, .article__text-author__bottom, .article__navigation-line',
             ]
         ];
 
