@@ -14,10 +14,12 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+
+// part 3 approved by roma
 class CORE_JpgazetaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -153,6 +155,25 @@ class CORE_JpgazetaRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as $postItem)
+                    {
+                        // вырезаем из текста большие зазоры
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                        }
+                    }
+                }
+            }
+        }
 
         return $posts;
     }
