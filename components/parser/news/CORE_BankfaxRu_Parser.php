@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -77,31 +77,31 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/rss.xml',
+                'url'           => '/rss.xml',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
+                'element-image' => '',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
+                'element-date'  => '',
             ],
 
             // настройка карточки элемента
@@ -124,12 +124,13 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '#center_column .content p:not(.datetime):first-child',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
                 'element-image'       => 'figure img[src]',
+                //                'element-image'       => 'figure a[href]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -139,7 +140,7 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'p.datetime',
+                'ignore-selectors'    => 'p.datetime, #center_column .content p:not(.datetime):first-child, figcaption',
             ]
         ];
 
@@ -153,6 +154,18 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        // вырезаем из URL картинки ограничитель размера
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->image))
+                {
+                    $post->image = str_replace('?size=', '?good_size_please=', $post->image);
+                }
+            }
+        }
 
         return $posts;
     }
