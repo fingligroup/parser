@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 3 approved by rmn
 class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -38,7 +38,7 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
@@ -83,6 +83,7 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
                 //                'pause'       => 0,
             ],
 
+            // !!! РСС отдает только 8 новостей!!!
             // настройки витрины (режим RSS)
             'rss'     => [
                 // относительный URL где находится RSS
@@ -93,27 +94,72 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'element'             => 'rss > channel > item',
 
-                    // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
+                // css селектор для названия элемента
+                // (обязательный)
+                'element-title'       => 'title',
 
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link',
+                // css селектор для ссылки
+                // (обязательный)
+                'element-link'        => 'link',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => 'description',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => 'description',
 
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => 'enclosure[url]',
+                // css селектор для картинки элемента
+                // (опционально)
+                'element-image'       => 'enclosure[url]',
 
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => 'pubDate',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => 'pubDate',
+            ],
+
+
+            // настройки витрины (режим HTML)
+            // !!! заполняется, только при отсутствии витрины RSS !!!
+            'list'    => [
+                // URL где находится витрина
+                // (обязательный)
+                'url'                 => '/news',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /vitrina/page/$page
+                // (опциональный)
+                //                'url-page'            => '/vitrina/page/$page',
+
+                // css селектор для контейнера витрины
+                // (обязательный)
+                'container'           => '.section-rubric',
+
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => '.news__item',
+
+                // ** дальнейшие css-селекторы указываются относительно element
+
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => 'a.news__item-desc[href]',
+
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => '.news__item-desc h3',
+
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
+
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => '.news__item-img img[src]',
+
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '.news__item-author time[datatime]',
             ],
 
             // настройка карточки элемента
@@ -123,32 +169,33 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => 'section.flex',
+                //                'container'           => 'section.flex',
+                'container'           => '.article',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.article__body',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.article__body',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '.article__subtitle',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => '',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
