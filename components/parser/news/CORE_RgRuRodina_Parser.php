@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 3 approved by rmn
 class CORE_RgRuRodina_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -38,17 +38,17 @@ class CORE_RgRuRodina_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'       => 'desktop',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            'itemsLimit' => 2,
+            //            'itemsLimit' => 2,
 
             // настройки сайта
-            'site'       => [
+            'site'    => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://rg.ru',
@@ -85,7 +85,7 @@ class CORE_RgRuRodina_Parser extends ParserCore implements ParserInterface
 
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'       => [
+            'list'    => [
                 // URL где находится витрина
                 // (обязательный)
                 'url'                 => '/rodina/articles-page',
@@ -123,7 +123,7 @@ class CORE_RgRuRodina_Parser extends ParserCore implements ParserInterface
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element'    => [
+            'element' => [
 
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
@@ -143,7 +143,7 @@ class CORE_RgRuRodina_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => '#articleContainer .b-material-wrapper__lead',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
