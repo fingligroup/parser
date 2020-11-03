@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_Magcity74Ru_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -41,7 +41,7 @@ class CORE_Magcity74Ru_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-             //          'itemsLimit' => 5,
+            //          'itemsLimit' => 5,
 
             // настройки сайта
             'site'    => [
@@ -103,7 +103,7 @@ class CORE_Magcity74Ru_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                //                'element-image'       => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -130,7 +130,7 @@ class CORE_Magcity74Ru_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.anons',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -146,6 +146,12 @@ class CORE_Magcity74Ru_Parser extends ParserCore implements ParserInterface
                 // (можно через запятую)
                 // (опционально)
                 'ignore-selectors'    => 'p.post_after',
+
+
+                // css-селекторы которые будут вставлятся в конец текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
+                // (опционально)
+                // ВИДЕО ВСТАВЛЯЕТСЯ ЧЕРЕЗ СКРИПТЫ!
+                //                'element-text-after'  => '.card-body .post-video iframe[src]',
             ]
         ];
 
