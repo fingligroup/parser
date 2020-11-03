@@ -14,10 +14,11 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -38,7 +39,7 @@ class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //            'itemsLimit' => 100
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -77,31 +78,31 @@ class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/rss.xml',
+                'url'           => '/rss.xml',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -124,7 +125,7 @@ class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.qr-content > .text-block:first-child > p:first-child',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -139,7 +140,7 @@ class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'blockquote.instagram-media',
+                'ignore-selectors'    => '.qr-content > .text-block:first-child > p:first-child, blockquote.instagram-media',
             ]
         ];
 
@@ -153,6 +154,25 @@ class CORE_Tv2Today_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        // вырезаем из текста большие зазоры
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as $postItem)
+                    {
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                        }
+                    }
+                }
+            }
+        }
+
 
         return $posts;
     }
