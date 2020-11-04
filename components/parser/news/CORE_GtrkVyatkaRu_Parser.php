@@ -14,10 +14,11 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 3 approved by roma
 class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -37,14 +38,14 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'desktop',
+            'mode'       => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                       'itemsLimit' => 10,
+            'itemsLimit' => 10,
 
             // настройки сайта
-            'site'    => [
+            'site'       => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://www.gtrk-vyatka.ru',
@@ -80,7 +81,7 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'     => [
+            'rss'        => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '',
@@ -112,30 +113,30 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
 
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
+            'list'       => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://www.gtrk-vyatka.ru/vesti/',
+                'url'           => 'https://www.gtrk-vyatka.ru/vesti/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => 'div#dle-content',
+                'container'     => 'div#dle-content',
 
                 // css селектор для элемента витрины (относительно контейнера)
                 // (обязательный)
-                'element'             => '.shortstory__container',
+                'element'       => '.shortstory__container',
 
                 // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '.shortstory__title a[href]',
+                'element-link'  => '.shortstory__title a[href]',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '.shortstory__title a',
+                'element-title' => '.shortstory__title a',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => '.shortstory__text > a',
+                //                'element-description' => '.shortstory__text > a',
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -143,12 +144,12 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '.fullstory-meta-date a',
+                'element-date'  => '.fullstory-meta-date a',
             ],
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element' => [
+            'element'    => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
@@ -195,6 +196,24 @@ class CORE_GtrkVyatkaRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as $postItem)
+                    {
+                        // вырезаем из текста большие зазоры
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                        }
+                    }
+                }
+            }
+        }
 
         return $posts;
     }
