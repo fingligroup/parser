@@ -147,7 +147,7 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => '.s3197186653 h2',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -162,7 +162,7 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.s1186707488',
+                'ignore-selectors'    => '.s3197186653 h2, .s1186707488, .post-item__photo-about',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
@@ -184,6 +184,32 @@ class CORE_SimpleNewsRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        //        print_r($posts);
+
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!$post->description)
+                {
+                    $post->description = $post->title;
+                }
+
+                if (!empty($post->items))
+                {
+                    //                            foreach ($post->items as $postItem)
+                    //                            {
+                    //                                // вырезаем из текста большие зазоры
+                    //                                if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                    //                                {
+                    //                                    $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                    //                                }
+                    //                            }
+                }
+            }
+        }
 
         return $posts;
     }
