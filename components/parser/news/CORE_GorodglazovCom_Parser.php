@@ -14,10 +14,11 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_GorodglazovCom_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -81,67 +82,31 @@ class CORE_GorodglazovCom_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feed',
+                'url'           => '/feed',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '.wp-post-image[src]',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -153,35 +118,35 @@ class CORE_GorodglazovCom_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.col-mod-single',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.entry-content',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.entry-content',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '.entry-content > p:first-of-type',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => 'img.wp-post-image[src]',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => 'img.wp-post-image[src]',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.meta-tags, figure.wp-caption-text',
+                'ignore-selectors'    => '.herald-ad, .entry-content > p:first-of-type, .meta-tags, figure.wp-caption-text',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
@@ -199,6 +164,34 @@ class CORE_GorodglazovCom_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as &$postItem)
+                    {
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            // вырезаем из текста большие зазоры
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                        }
+
+                        // вырезаем дубли из заголовков
+                        if ($postItem->type == NewsPostItem::TYPE_HEADER)
+                        {
+                            if (strpos($post->description, $postItem->text) !== false)
+                            {
+                                $post->description = $post->title;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return $posts;
     }
