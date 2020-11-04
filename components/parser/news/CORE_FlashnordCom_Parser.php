@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part2 approved alex
+// part 3 approved by rmn
 class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -26,7 +26,7 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,7 +38,7 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                    //    'itemsLimit' => 10,
+            //    'itemsLimit' => 10,
 
             // настройки сайта
             'site'    => [
@@ -78,35 +78,35 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'http://flashnord.com/news',
+                'url'           => 'http://flashnord.com/news',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '.view-content',
+                'container'     => '.view-content',
 
                 // css селектор для элемента витрины (относительно контейнера)
                 // (обязательный)
-                'element'             => '.hentry',
+                'element'       => '.hentry',
 
                 // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '.entry-title a[href]',
+                'element-link'  => '.entry-title a[href]',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '.entry-title',
+                'element-title' => '.entry-title',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => '.entry-title a',
+                //                'element-description' => '.entry-title a',
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '.thumb-link img[src]',
+                'element-image' => '.thumb-link img[src]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '.published',
+                'element-date'  => '.published',
             ],
 
             // настройка карточки элемента
@@ -116,35 +116,38 @@ class CORE_FlashnordCom_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
                 // (обязательный)
-                'container'           => '.hentry',
+                //                'container'           => '.hentry',
+                'container'        => 'article.node',
 
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => '.entry-content',
+                'element-text'     => '.entry-content',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
-                'element-date'        => '.posted-on time',
+                'element-date'     => '.posted-on time',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                // !!! не удается точно определить, так как есть новости с одним <p>
+                //                'element-description' => '.entry-content > p:first-child',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'    => '',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
                 // (опционально)
-                'element-quote'       => '.entry-content p > strong',
+                'element-quote'    => '.entry-content p > strong',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.element-invisible ',
+                //                'ignore-selectors'    => 'article.node .entry-content > p:first-child, .element-invisible ',
+                'ignore-selectors' => '.element-invisible ',
             ]
         ];
 
