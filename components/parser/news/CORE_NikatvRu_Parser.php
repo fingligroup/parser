@@ -14,10 +14,11 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -76,66 +77,31 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/rss/news',
+                'url'           => '/rss/news',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -172,7 +138,7 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => 'figcaption',
             ]
         ];
 
@@ -186,6 +152,31 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as $postItem)
+                    {
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            // вырезаем из текста большие зазоры
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+
+                            // вырезаем текст, который найден в лиде
+                            if (strpos($post->description, $postItem->text) !== false)
+                            {
+                                //                                $postItem->text = 'fake';
+                                $post->description = $post->title;
+                            }
+                        }
+                    }
+                }
+            }
+        }
 
         return $posts;
     }
