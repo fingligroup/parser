@@ -14,10 +14,11 @@
 
 namespace app\components\parser\news;
 
+use app\components\parser\NewsPostItem;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 3 approved by rmn
 class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -26,7 +27,7 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
     const FOR_CORE_VERSION = '1.0';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -77,67 +78,31 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feed',
+                'url'           => '/feed',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // css селектор !должен содержать конечный аттрибут href!  для ссылки (относительно элемента)
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-title'       => '',
-
-                // css селектор для описания элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
-
-                // css селектор для даты элемента (относительно элемента)
-                // (заполняется только, если отсутствует в карточке)
-                'element-date'        => '',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -160,7 +125,7 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.infinite-post > p:nth-of-type(2)',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -175,11 +140,32 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.post-views, .infinite-post .row, .social-likes',
+                'ignore-selectors'    => '.infinite-post > p:nth-of-type(2), .infinite-post > h1:first-child, .post-views, .infinite-post .row, .social-likes',
             ]
         ];
 
         parent::__construct();
+    }
+
+    protected function getCardTextHtml(string $html)
+    : string {
+        // добавляем css-селекторы в начало и/или в конец текста
+        $html = $this->getHtmlWithInsertedSelectors($html);
+
+        // вырезаем игнорируемые теги
+        $html = $this->getHtmlWithoutIgnoredSelectors($html);
+
+        // подменяем цитаты
+        $html = $this->getHtmlWithSubstitutedQuotes($html);
+
+        $html = str_replace('<p> </p>', '', $html);
+        $html = str_replace('<p>&nbsp;</p>', '', $html);
+        $html = str_replace('<p> </p>', '', $html);
+
+        // оставляем только нужные теги
+        $html = $this->stripTags($html, $this->allowedTags);
+
+        return $html;
     }
 
     public static function run()
@@ -189,6 +175,29 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                if (!empty($post->items))
+                {
+                    foreach ($post->items as $postItem)
+                    {
+                        // вырезаем из текста большие зазоры
+                        if ($postItem->type == NewsPostItem::TYPE_TEXT)
+                        {
+                            //                            $postItem->text = preg_replace("/\\n\\n /", "", $postItem->text);
+                            //                            $postItem->text = preg_replace('/[ \t]+/', ' ', preg_replace('/\s*$^\s*/m', "\n", $postItem->text));
+                            $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+                            //                            $postItem->text = preg_replace('/(?|( )+|(\\n)+)/', '$1', $postItem->text);
+                            //                                                        $postItem->text = str_replace("\n\n ", "", $postItem->text);
+                        }
+                    }
+                }
+            }
+        }
 
         return $posts;
     }
