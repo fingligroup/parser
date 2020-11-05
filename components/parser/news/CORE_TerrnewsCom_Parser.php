@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved roman
+// part 3 approved by rmn
 class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.7';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -34,14 +34,14 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'       => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            //            'itemsLimit' => 1,
+            'itemsLimit' => 1,
 
             // настройки сайта
-            'site'    => [
+            'site'       => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://terrnews.com',
@@ -56,7 +56,7 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                //'time_zone'   => '+0300',
+                'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -74,7 +74,7 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'     => [
+            'rss'        => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'           => '/rss.xml',
@@ -105,9 +105,53 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
             ],
 
 
+            // настройки витрины (режим HTML)
+            // !!! заполняется, только при отсутствии витрины RSS !!!
+            'list'       => [
+                // URL где находится витрина
+                // (обязательный)
+                'url'                 => '/',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /vitrina/page/$page
+                // (опциональный)
+                //                'url-page'            => '/vitrina/page/$page',
+
+                // css селектор для контейнера витрины
+                // (обязательный)
+                'container'           => '#content-block .left-col',
+
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => '.st-news',
+
+                // ** дальнейшие css-селекторы указываются относительно element
+
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => '.st-news-image a[href]',
+
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => '.st-news-title',
+
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
+
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => '.st-news-image img[src]',
+
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '.st-news-date',
+            ],
+
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element' => [
+            'element'    => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
@@ -140,7 +184,21 @@ class CORE_TerrnewsCom_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.ttimages-simple a, .insta, .ttimages-simple img, .ttimages-simple',
+                //                'ignore-selectors'    => 'noindex, .ttimages-simple a, .insta, .ttimages-simple img, .ttimages-simple',
+                'ignore-selectors'    => '.ttimages-title, div[style="text-align:center;"]:first-of-type',
+
+
+                // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
+                // (опционально)
+                'element-text-before' => '',
+
+                // css-селекторы которые будут вставлятся в конец текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
+                // (опционально)
+                'element-text-after'  => '',
+
+                // протокол и домен для карточки элемента
+                // (опциональный)
+                'url'                 => '',
             ]
         ];
 
