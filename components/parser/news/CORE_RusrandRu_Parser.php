@@ -17,20 +17,20 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by
+// part 4
 class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,20 +38,20 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
                 // протокол и домен
                 // (обязательный)
-                'url'         => '',
+                'url'         => 'http://rusrand.ru',
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
@@ -87,59 +87,66 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '',
+                'url'           => '/rss/',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для названия элемента
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента
                 // (опционально)
-                'element-image'       => 'enclosure[url]',
+                //                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
+
 
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => '',
+                'url'                 => '/new/',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /vitrina/page/$page
+                // (опциональный)
+                //                'url-page'            => '/vitrina/page/$page',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '',
+                'container'           => '#textPage .items',
 
                 // css селектор для элемента витрины (относительно контейнера)
                 // (обязательный)
-                'element'             => '',
+                'element'             => 'section.item',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
+                'element-link'        => 'h2 a[href]',
 
                 // css селектор для названия элемента
                 // (опционально)
-                'element-title'       => '',
+                'element-title'       => 'h2',
 
                 // css селектор для описания элемента
                 // (опционально)
@@ -151,7 +158,7 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.date',
             ],
 
             // настройка карточки элемента
@@ -161,14 +168,14 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '',
+                'container'           => '#textPage',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '',
+                'element-text'        => 'article',
 
                 // css-селектор даты создания новости
                 // (опционально)
@@ -181,7 +188,7 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => 'img.img-polaroid:first-of-type[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -191,7 +198,7 @@ class CORE_RusrandRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => 'img.img-polaroid:first-of-type, div.clearfix ~ *',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
