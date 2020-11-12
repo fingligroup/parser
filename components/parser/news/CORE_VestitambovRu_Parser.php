@@ -114,7 +114,7 @@ class CORE_VestitambovRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                 // (опционально)
-                'element-image'       => '.arhiv-list img[src]',
+                //                'element-image'       => '.arhiv-list img[src]',
 
                 // css селектор для даты элемента
                 // (опционально)
@@ -148,7 +148,7 @@ class CORE_VestitambovRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => 'img.attachment-large.img-top[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
