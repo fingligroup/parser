@@ -17,20 +17,20 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by
+// part 4
 class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -45,13 +45,13 @@ class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
                 // протокол и домен
                 // (обязательный)
-                'url'         => '',
+                'url'         => 'https://nashemedia.ru',
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
@@ -87,71 +87,33 @@ class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '',
+                'url'           => '/feed',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для названия элемента
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента
                 // (опционально)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
-                // (обязательный)
-                'url'                 => '',
-
-                // css селектор для контейнера витрины
-                // (обязательный)
-                'container'           => '',
-
-                // css селектор для элемента витрины (относительно контейнера)
-                // (обязательный)
-                'element'             => '',
-
-                // ** дальнейшие css-селекторы указываются относительно element
-
-                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => '',
-
-                // css селектор для названия элемента
-                // (опционально)
-                'element-title'       => '',
-
-                // css селектор для описания элемента
-                // (опционально)
-                'element-description' => '',
-
-                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                // (опционально)
-                'element-image'       => '',
-
-                // css селектор для даты элемента
-                // (опционально)
-                'element-date'        => '',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -161,14 +123,14 @@ class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '',
+                'container'           => '.post',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '',
+                'element-text'        => '.post-content',
 
                 // css-селектор даты создания новости
                 // (опционально)
@@ -181,7 +143,7 @@ class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => '.featured-image img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -191,7 +153,7 @@ class CORE_NashemediaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.mistape_caption, .heateor_sss_sharing_container',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
