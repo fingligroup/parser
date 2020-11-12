@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 4
 class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -144,7 +144,7 @@ class CORE_SarnovostiRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-after' => '.gallery-wrapper',
+                'element-text-after'  => '.gallery-wrapper',
             ]
         ];
 
