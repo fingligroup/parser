@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 4
 class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -56,7 +56,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
                 'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
-                                // 'user_agent'  => 'bot',
+                // 'user_agent'  => 'bot',
 
                 // часовой пояс UTC.
                 // Чтобы определить часовой пояс, нужно зайти на https://time.is/Moscow и выбрать ближайший крупный город к которому относится сайт
@@ -94,31 +94,31 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.main-news__list',
 
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '.main-news__item',
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => '.main-news__item',
 
-                        // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '.main-news__item-inner[href^="/"][href]',
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => '.main-news__item-inner[href^="/"][href]',
 
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '.main-news__title',
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => '.main-news__title',
 
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '.article__anons',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '.article__anons',
 
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => 'img.main-news__img[src]',
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => 'img.main-news__img[src]',
 
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -130,30 +130,30 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.article__content',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.article__text',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.article__text',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '.article__dates',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '.article__dates',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '.article__anons',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '.article__anons',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => '',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
