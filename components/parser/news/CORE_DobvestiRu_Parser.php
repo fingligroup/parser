@@ -24,7 +24,7 @@ class CORE_DobvestiRu_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = false;
 
@@ -38,7 +38,7 @@ class CORE_DobvestiRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-             //           'itemsLimit' => 1,
+            //           'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [

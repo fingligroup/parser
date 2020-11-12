@@ -24,7 +24,7 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -45,7 +45,7 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [

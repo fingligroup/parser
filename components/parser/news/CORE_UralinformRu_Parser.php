@@ -24,7 +24,7 @@ class CORE_UralinformRu_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -37,14 +37,14 @@ class CORE_UralinformRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'       => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 20,
+            'itemsLimit' => 20,
 
             // настройки сайта
-            'site'    => [
+            'site'       => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://www.uralinform.ru',
@@ -80,7 +80,7 @@ class CORE_UralinformRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'     => [
+            'rss'        => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/rss/all.rss',
@@ -112,7 +112,7 @@ class CORE_UralinformRu_Parser extends ParserCore implements ParserInterface
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element' => [
+            'element'    => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)

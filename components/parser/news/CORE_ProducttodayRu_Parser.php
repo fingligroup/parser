@@ -23,7 +23,7 @@ class CORE_ProducttodayRu_Parser extends ParserCore implements ParserInterface
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -76,31 +76,31 @@ class CORE_ProducttodayRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feed/',
+                'url'           => '/feed/',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-//                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
+                'element-image' => '',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента

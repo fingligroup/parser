@@ -23,7 +23,7 @@ class CORE_SeverinformRu_Parser extends ParserCore implements ParserInterface
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = true;
 

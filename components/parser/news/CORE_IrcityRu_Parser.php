@@ -23,7 +23,7 @@ class CORE_IrcityRu_Parser extends ParserCore implements ParserInterface
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.0.0';
+    const FOR_CORE_VERSION = '1.8';
     // режим эмуляции запросов (только для разработки)
     // для подделки запроса к URL нужно добавить элемент массива в файле emulateHtml.php
     protected const EMULATE_MODE = false;
