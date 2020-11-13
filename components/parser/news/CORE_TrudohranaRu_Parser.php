@@ -17,20 +17,20 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_TrudohranaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -55,8 +55,8 @@ class CORE_TrudohranaRu_Parser extends ParserCore implements ParserInterface
 
                 // использовать юзер-агенты в http запросах.
                 // (опционально)
-                'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
-                //                'user_agent'  => 'bot',
+                //                'user_agent'  => 'Mozilla/5.0 (Windows NT 6.1; Win64; x64; rv:47.0) Gecko/20100101 Firefox/42.0',
+                'user_agent'  => 'bot',
 
                 // часовой пояс UTC.
                 // Чтобы определить часовой пояс, нужно зайти на https://time.is/Moscow и выбрать ближайший крупный город к которому относится сайт
@@ -88,37 +88,38 @@ class CORE_TrudohranaRu_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://www.trudohrana.ru/news',
+                'url'                 => '/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '.frontpageTop__content_news-list',
+                //                'container'           => '.frontpageTop__content_news-list',
+                'container'           => '.col-xs-12.col-sm-5.frontpageCenter__right .defaultBlock',
 
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '.defaultBlock__item',
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => '.defaultBlock__item',
 
-                        // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '.defaultBlock__itemTitleLink[href]',
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => '.defaultBlock__itemTitleLink[href]',
 
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '.defaultBlock__itemTitleLink',
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => '.defaultBlock__itemTitleLink',
 
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
 
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => '',
 
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '',
             ],
 
             // настройка карточки элемента
@@ -130,30 +131,30 @@ class CORE_TrudohranaRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.frontpageTop__content_news-item',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.contentSchema',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.contentSchema',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '.contentSubtitle__publish',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '.contentSubtitle__publish',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => '',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
