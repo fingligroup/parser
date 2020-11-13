@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by rmn
+// part 4
 class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -87,33 +87,33 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feed/',
+                'url'           => '/feed/',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
-                    // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
+                // css селектор для названия элемента
+                // (обязательный)
+                'element-title' => 'title',
 
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link',
+                // css селектор для ссылки
+                // (обязательный)
+                'element-link'  => 'link',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                //                    'element-description' => '',
 
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для картинки элемента
+                // (опционально)
+                'element-image' => '',
 
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => 'pubDate',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -123,38 +123,42 @@ class CORE_MustoiRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.td-ss-main-content',
+                //                'container'           => '.td-ss-main-content',
+                'container'           => 'article.post',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-//                    'element-text'        => '.td-post-content',
-                    'element-text'        => '#data-io-article-url',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                //                    'element-text'        => '.td-post-content',
+                //                    'element-text'        => '#data-io-article-url',
+                'element-text'        => '.td-post-content',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '#data-io-article-url > p:first-child',
+                // css селектор для описания элемента
+                // (опционально)
+                //                'element-description' => '#data-io-article-url > p:first-child',
+                'element-description' => '.td-post-content p:first-of-type',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => 'img.entry-thumb[src]',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => 'img.entry-thumb[src]',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '#data-io-article-url > p:first-child, .reklamo',
+                //                'ignore-selectors'    => '#data-io-article-url > p:first-child, .reklamo',
+                'ignore-selectors'    => '.td-post-content p:first-of-type, .reklamo',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
