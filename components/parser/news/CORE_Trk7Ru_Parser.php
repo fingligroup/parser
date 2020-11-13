@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 2 approved alex
+// part 4
 class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -45,7 +45,7 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-                    //    'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -88,37 +88,37 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://trk7.ru/news/',
+                'url'           => 'https://trk7.ru/news/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '.newslist',
+                'container'     => '.newslist',
 
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '.listnewscont',
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'       => '.listnewscont',
 
-                        // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '.listnewscont-info > h2 > a[href]',
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'  => '.listnewscont-info > h2 > a[href]',
 
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '.listnewscont-info > h2 > a',
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title' => '.listnewscont-info > h2 > a',
 
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '.info-text',
+                // css селектор для описания элемента
+                // (опционально)
+                //                'element-description' => '.info-text',
 
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '.image[src]',
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image' => '.image[src]',
 
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => 'time[itemprop="datePublished"]',
+                // css селектор для даты элемента
+                // (опционально)
+                //                'element-date'        => 'time[itemprop="datePublished"]',
             ],
 
             // настройка карточки элемента
@@ -130,35 +130,37 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.newsitem',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.detailtextnews',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.detailtextnews',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => 'time[itemprop="datePublished"]',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '.newsitem__header',
+                // css селектор для описания элемента
+                // (опционально)
+                //                'element-description' => '.newsitem__header',
+                //                'element-description' => '.detailtextnews p:first-of-type',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => '',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => '',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => '',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '#adv, .newsitem__typo',
+                //                'ignore-selectors'    => '.detailtextnews p:first-of-type, #adv, .newsitem__typo',
+                'ignore-selectors'    => ' #adv, .newsitem__typo',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
