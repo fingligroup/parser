@@ -139,7 +139,7 @@ class CORE_MoslentaRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => '.text p:first-child',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -154,7 +154,7 @@ class CORE_MoslentaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'article .text > p:last-child em',
+                'ignore-selectors'    => '.text p:first-child, .text > p:last-child em',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
