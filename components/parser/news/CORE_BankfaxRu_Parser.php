@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by rmn
+// part 4
 class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -124,7 +124,11 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '#center_column .content p:not(.datetime):first-child',
+                //                'element-description' => '.content p:not(.datetime):first-of-type',
+                //                'element-description' => '.content p:nth-child(2)',
+                //                'element-description' => '.content p:first-child',
+                //                'element-description' => '.content > p:not(.datetime):first-of-type',
+                'element-description' => '.content > p:nth-of-type(2)',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -140,7 +144,12 @@ class CORE_BankfaxRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'p.datetime, #center_column .content p:not(.datetime):first-child, figcaption',
+                //                'ignore-selectors'    => 'p.datetime,  .content p:not(.datetime):first-of-type, figcaption',
+                //                'ignore-selectors'    => '#center_column .content p:nth-child(2), p.datetime, figcaption',
+                //                'ignore-selectors'    => '.content p:not(.datetime):first-of-type, p.datetime, figcaption',
+                //                'ignore-selectors'    => 'p.datetime, p:first-child, figcaption',
+                //                'ignore-selectors' => '.content > p:not(.datetime):first-of-type, p.datetime, figcaption',
+                'ignore-selectors'    => '.content > p:nth-of-type(2), p.datetime, figcaption',
             ]
         ];
 
