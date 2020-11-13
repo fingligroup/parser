@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_NiannRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -77,31 +77,31 @@ class CORE_NiannRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/rss',
+                'url'           => '/rss',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -124,7 +124,7 @@ class CORE_NiannRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.mess_standart p:not(.mess_art_photo):first-child',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -139,7 +139,7 @@ class CORE_NiannRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.article .mess_standart .insert_pos_icon, .mess_standart p:first-child',
             ]
         ];
 
