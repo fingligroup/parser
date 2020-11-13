@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by rmn
+// part 4
 class CORE_OsnmediaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -122,7 +122,8 @@ class CORE_OsnmediaRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для основного текста
                 // (для заполнения модели NewsPostItem)
                 // (обязательный)
-                'element-text'        => '.bialty-container',
+                //                'element-text'        => '.bialty-container',
+                'element-text'        => 'div[itemprop="articleBody"]',
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
@@ -130,7 +131,7 @@ class CORE_OsnmediaRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '.bialty-container > p:first-child',
+                'element-description' => 'div[itemprop="articleBody"] > p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -145,7 +146,7 @@ class CORE_OsnmediaRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.superdate, .bialty-container > p:first-child',
+                'ignore-selectors'    => '.superdate, div[itemprop="articleBody"] > p:first-of-type',
             ]
         ];
 
