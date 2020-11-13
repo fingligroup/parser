@@ -17,16 +17,16 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_RiadagestanRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -153,6 +153,29 @@ class CORE_RiadagestanRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+
+//                if (!empty($posts))
+        //                {
+        //                    foreach ($posts as $post)
+        //                    {
+        //                        if (!empty($post->items))
+        //                        {
+        //                            foreach ($post->items as $postItem)
+        //                            {
+        //                                $paragraphs = explode("\n\n", $postItem->text);
+        //
+        //                                print_r($paragraphs);
+        //
+        //                                // вырезаем из текста большие зазоры
+        //                                if ($postItem->type == NewsPostItem::TYPE_TEXT)
+        //                                {
+        //                                    $postItem->text = preg_replace("/[\r\n ]{2,}/", "\n\n", $postItem->text);
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                }
 
         return $posts;
     }
