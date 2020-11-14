@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by rmn
+// part 4
 class CORE_WwwStrategyaCom_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -138,7 +138,7 @@ class CORE_WwwStrategyaCom_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => '.left-text p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -154,7 +154,7 @@ class CORE_WwwStrategyaCom_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '#breadcrumbs, .social-knopki, .hottest, #comments_templates, .related-articles, h4, .dashed, noindex, h1',
+                'ignore-selectors'    => '.left-text p:first-of-type, #breadcrumbs, .social-knopki, .hottest, #comments_templates, .related-articles, h4, .dashed, noindex, h1',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищут.dashedня, т.е. не зависят от container)
                 // (опционально)
