@@ -98,7 +98,7 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image' => 'enclosure[url]',
+                //                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -130,7 +130,7 @@ class CORE_Rg62Info_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => '.infinite-post img:first-of-type[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
