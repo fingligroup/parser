@@ -164,7 +164,7 @@ class CORE_BankinformRu_Parser extends ParserCore implements ParserInterface
                     foreach ($post->items as $postItem)
                     {
                         // + fix
-                        if (strpos($post->description, $postItem->text) !== false && strlen($postItem->text) > 20)
+                        if (!empty($postItem->text) && strpos($post->description, $postItem->text) !== false && strlen($postItem->text) > 20)
                         {
                             $post->description = $post->title;
                         }
