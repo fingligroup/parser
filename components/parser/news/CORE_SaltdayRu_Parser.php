@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_SaltdayRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -87,71 +87,33 @@ class CORE_SaltdayRu_Parser extends ParserCore implements ParserInterface
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/rss.html',
+                'url'           => '/rss.html',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
-                    // ** дальнейшие css-селекторы указываются относительно element
+                // ** дальнейшие css-селекторы указываются относительно element
 
-                    // css селектор для названия элемента
-                    // (обязательный)
-                    'element-title'       => 'title',
-
-                    // css селектор для ссылки
-                    // (обязательный)
-                    'element-link'        => 'link',
-
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => 'description',
-
-                    // css селектор для картинки элемента
-                    // (опционально)
-                    'element-image'       => 'enclosure[url]',
-
-                    // css селектор для даты элемента
-                    // (опционально)
-                    'element-date'        => 'pubDate',
-            ],
-
-            // настройки витрины (режим HTML)
-            // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'    => [
-                // URL где находится витрина
+                // css селектор для названия элемента
                 // (обязательный)
-                'url'                 => '',
+                'element-title' => 'title',
 
-                // css селектор для контейнера витрины
+                // css селектор для ссылки
                 // (обязательный)
-                'container'           => '',
+                'element-link'  => 'link',
 
-                    // css селектор для элемента витрины (относительно контейнера)
-                    // (обязательный)
-                    'element'             => '',
+                // css селектор для описания элемента
+                // (опционально)
+                //                'element-description' => 'description',
 
-                        // ** дальнейшие css-селекторы указываются относительно element
+                // css селектор для картинки элемента
+                // (опционально)
+                'element-image' => 'enclosure[url]',
 
-                        // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
-                        // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                        'element-link'        => '',
-
-                        // css селектор для названия элемента
-                        // (опционально)
-                        'element-title'       => '',
-
-                        // css селектор для описания элемента
-                        // (опционально)
-                        'element-description' => '',
-
-                        // css селектор !должен содержать конечный аттрибут src! для картинки элемента
-                        // (опционально)
-                        'element-image'       => '',
-
-                        // css селектор для даты элемента
-                        // (опционально)
-                        'element-date'        => '',
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -163,35 +125,35 @@ class CORE_SaltdayRu_Parser extends ParserCore implements ParserInterface
                 // (обязательный)
                 'container'           => '.lColumn',
 
-                    // ** дальнейшие css-селекторы указываются относительно container
+                // ** дальнейшие css-селекторы указываются относительно container
 
-                    // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
-                    // (можно несколько через запятую, если есть разные шаблоны новости)
-                    // (обязательный)
-                    'element-text'        => '.news-block.wo-border.rubric-list',
+                // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
+                // (можно несколько через запятую, если есть разные шаблоны новости)
+                // (обязательный)
+                'element-text'        => '.news-block.wo-border.rubric-list',
 
-                    // css-селектор даты создания новости
-                    // (опционально)
-                    'element-date'        => '',
+                // css-селектор даты создания новости
+                // (опционально)
+                'element-date'        => '',
 
-                    // css селектор для описания элемента
-                    // (опционально)
-                    'element-description' => '',
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '.lead',
 
-                    // css селектор для получения картинки
-                    // !должен содержать конечный аттрибут src! (например: img.main-image[src])
-                    // (опционально)
-                    'element-image'       => '',
+                // css селектор для получения картинки
+                // !должен содержать конечный аттрибут src! (например: img.main-image[src])
+                // (опционально)
+                'element-image'       => '',
 
-                    // css-селектор для цитаты
-                    // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
-                    // (опционально)
-                    'element-quote'       => 'blockquote',
+                // css-селектор для цитаты
+                // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
+                // (опционально)
+                'element-quote'       => 'blockquote',
 
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.B_crumbBox, .title-news, .time, .rubrika, .social1, .cnew, .bsys_place, #hypercomments_widget',
+                'ignore-selectors'    => '.B_crumbBox, .title-news, .time, .rubrika, .social1, .cnew, .bsys_place, #hypercomments_widget, a[title="comments widget"]',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
@@ -199,7 +161,7 @@ class CORE_SaltdayRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в конец текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
                 // (опционально)
-                'element-text-after' => '',
+                'element-text-after'  => '',
             ]
         ];
 
