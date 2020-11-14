@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by rmn
+// part 4
 class CORE_PressmiaRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.8';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -175,6 +175,40 @@ class CORE_PressmiaRu_Parser extends ParserCore implements ParserInterface
         ];
 
         parent::__construct();
+    }
+
+    protected function stripTags(string $html, array $allowedTags = [])
+    : string {
+        // удаляем все переводы строк, чтобы поставить свои
+        $html = str_replace("\n", '', $html);
+        $html = str_replace("\r", '', $html);
+
+        $html = str_replace('<br><br>', "\n\n ", $html);
+
+
+        // прежде, чем вырезать теги, нужно компенсировать между ними пробелы
+        // и в случае разбиения на параграфы добавить
+        $html = str_replace('</div>', ' </div>', $html);
+        $html = str_replace('</p>', " </p>\n\n", $html);
+        //        $html = str_replace('<br>', " <br>\n", $html);
+        //        $html = str_replace('<br/>', " <br/>\n", $html);
+        $html = str_replace('</li>', ' </li>', $html);
+        $html = str_replace('</td>', ' </td>', $html);
+
+        // а также заменить переводы строк пробелами, если указано в настройках
+        // для сайтов, которые не ставят пробелы после перевода строки в тексте
+        if (!empty($this->config['site']['transform_new_line_to_space']) && $this->config['site']['transform_new_line_to_space'] === true)
+        {
+            $html = str_replace("\r", ' ', $html);
+            $html = str_replace("\n", ' ', $html);
+        }
+
+        $stripped = strip_tags($html, $allowedTags);
+
+        // сжимаем много пробелов в один
+        $stripped = preg_replace("/[ ]{2,}/", " ", $stripped);
+
+        return $stripped;
     }
 
     public static function run()
