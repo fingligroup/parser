@@ -189,7 +189,7 @@ class CORE_UtroNewsRu_Parser extends ParserCore implements ParserInterface
                         }
 
                         // fix
-                        if (strpos($post->description, $postItem->text) !== false)
+                        if (!empty($postItem->text) && strpos($post->description, $postItem->text) !== false)
                         {
                             $post->description = $post->title;
                         }
