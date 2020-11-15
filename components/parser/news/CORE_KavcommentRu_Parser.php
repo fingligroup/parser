@@ -116,7 +116,7 @@ class CORE_KavcommentRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'  => 'pubDate',
+                //                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -137,7 +137,7 @@ class CORE_KavcommentRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.entry-meta-date.updated',
 
                 // css селектор для описания элемента
                 // (опционально)
