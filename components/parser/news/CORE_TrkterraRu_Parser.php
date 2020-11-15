@@ -38,7 +38,7 @@ class CORE_TrkterraRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                    //    'itemsLimit' => 4,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -71,38 +71,90 @@ class CORE_TrkterraRu_Parser extends ParserCore implements ParserInterface
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
+
+
+                // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
+                'pause'       => 1,
+
+                // кодировка сайта
+                'encoding'    => 'UTF-8'
             ],
 
             // настройки витрины (режим RSS)
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/news?format=feed&type=rss',
+                'url'           => '/news?format=feed&type=rss',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
+                'element-image' => '',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
+
+
+            // настройки витрины (режим HTML)
+            // !!! заполняется, только при отсутствии витрины RSS !!!
+            //            'list'    => [
+            //                // URL где находится витрина
+            //                // (обязательный)
+            //                'url'                 => '/',
+            //
+            //                // URL для навигации по страницам
+            //                // вместо $page - подставляется номер страницы
+            //                // например: /vitrina/page/$page
+            //                // (опциональный)
+            //                //                'url-page'            => '/vitrina/page/$page',
+            //
+            //                // css селектор для контейнера витрины
+            //                // (обязательный)
+            //                'container'           => '.newsfeed-items',
+            //
+            //                // css селектор для элемента витрины (относительно контейнера)
+            //                // (обязательный)
+            //                'element'             => '.newsfeed-item',
+            //
+            //                // ** дальнейшие css-селекторы указываются относительно element
+            //
+            //                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+            //                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+            //                'element-link'        => '.newsfeed-item_title[href]',
+            //
+            //                // css селектор для названия элемента
+            //                // (опционально)
+            //                'element-title'       => '.newsfeed-item_title',
+            //
+            //                // css селектор для описания элемента
+            //                // (опционально)
+            //                'element-description' => '',
+            //
+            //                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+            //                // (опционально)
+            //                'element-image'       => '',
+            //
+            //                // css селектор для даты элемента
+            //                // (опционально)
+            //                'element-date'        => '.newsfeed-item_time',
+            //            ],
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
@@ -124,7 +176,7 @@ class CORE_TrkterraRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.introtext',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -139,7 +191,7 @@ class CORE_TrkterraRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.page-header, .google-advert-before-title, .article-header, .article-info, .moduletable, .ya-share, .ya-share2, #jlcomments_container',
+                'ignore-selectors'    => 'div[itemprop="articleBody"] .introtext, .page-header, .google-advert-before-title, .article-header, .article-info, .moduletable, .ya-share, .ya-share2, #jlcomments_container',
             ]
         ];
 
