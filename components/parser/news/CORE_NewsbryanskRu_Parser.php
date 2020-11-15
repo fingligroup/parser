@@ -17,16 +17,16 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.12';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -34,11 +34,11 @@ class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 1,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -71,6 +71,9 @@ class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
+
+                // отключаем SSL проверку у CURL
+                'insecure'    => true
             ],
 
             // настройки витрины (режим RSS)
@@ -102,6 +105,53 @@ class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
                 'element-date'        => 'pubDate',
+
+                //                'encoding' => 'windows-1251'
+            ],
+
+
+            // настройки витрины (режим HTML)
+            // !!! заполняется, только при отсутствии витрины RSS !!!
+            'list'    => [
+                // URL где находится витрина
+                // (обязательный)
+                'url'                 => '/',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /vitrina/page/$page
+                // (опциональный)
+                //                'url-page'            => '/vitrina/page/$page',
+
+                // css селектор для контейнера витрины
+                // (обязательный)
+                'container'           => '.page-container',
+
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => '.feed-post',
+
+                // ** дальнейшие css-селекторы указываются относительно element
+
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => '.post-title[href]',
+
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => '.post-title',
+
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
+
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => '',
+
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '.post-pubDate',
             ],
 
             // настройка карточки элемента
@@ -124,12 +174,12 @@ class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.post-content p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => '.post-media div[itemprop="image"] img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -139,7 +189,7 @@ class CORE_NewsbryanskRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.post-content p:first-of-type',
             ]
         ];
 
