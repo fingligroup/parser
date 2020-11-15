@@ -17,16 +17,16 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.12';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = true;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -34,11 +34,11 @@ class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'rss',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-                        'itemsLimit' => 1,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -73,11 +73,15 @@ class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
             ],
 
+            // ПРОБЛЕМЫ С КОДИРОВКОЙ! Видимо двойное кодирование
             // настройки витрины (режим RSS)
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/rss/',
+
+                // кодировка, если не utf-8
+                'encoding'            => 'windows-1251',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
@@ -104,6 +108,49 @@ class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
                 'element-date'        => 'pubDate',
             ],
 
+            // настройки витрины (режим HTML)
+            // !!! заполняется, только при отсутствии витрины RSS !!!
+            'list'    => [
+                // URL где находится витрина
+                // (обязательный)
+                'url'                 => '/',
+
+                // URL для навигации по страницам
+                // вместо $page - подставляется номер страницы
+                // например: /vitrina/page/$page
+                // (опциональный)
+                //                'url-page'            => '/vitrina/page/$page',
+
+                // css селектор для контейнера витрины
+                // (обязательный)
+                'container'           => '#tab-1-1 .content',
+
+                // css селектор для элемента витрины (относительно контейнера)
+                // (обязательный)
+                'element'             => 'p',
+
+                // ** дальнейшие css-селекторы указываются относительно element
+
+                // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
+                // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
+                'element-link'        => 'a[href]',
+
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => 'a',
+
+                // css селектор для описания элемента
+                // (опционально)
+                'element-description' => '',
+
+                // css селектор !должен содержать конечный аттрибут src! для картинки элемента
+                // (опционально)
+                'element-image'       => '',
+
+                // css селектор для даты элемента
+                // (опционально)
+                'element-date'        => '.news-date-time',
+            ],
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
@@ -125,12 +172,12 @@ class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.fulltext p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => '.detail_picture[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -140,7 +187,11 @@ class CORE_DorinfoRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.fulltext p:first-of-type, figure.sign',
+
+                // css-селекторы которые будут вставлятся в конец текста новости element-text (селекторы ищутся от корня, т.е. не зависят от container)
+                // (опционально)
+                'element-text-after'  => '#gallery ',
             ]
         ];
 
