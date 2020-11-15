@@ -17,15 +17,15 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.12';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -33,14 +33,14 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'       => 'rss',
+            'mode'    => 'rss',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
-            'site'       => [
+            'site'    => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://ivteleradio.ru',
@@ -73,7 +73,7 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройки витрины (режим RSS)
-            'rss'        => [
+            'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'                 => '/rss',
@@ -104,7 +104,7 @@ class CORE_IvteleradioRu_Parser extends ParserCore implements ParserInterface
             ],
 
             // настройка карточки элемента
-            'element'    => [
+            'element' => [
 
                 // css-селектор для контейнера карточки
                 // (все дальнейшие пути строятся относительно этого контейнера)
