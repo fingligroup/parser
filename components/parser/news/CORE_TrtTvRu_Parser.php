@@ -17,15 +17,15 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.12';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
-    protected const DEBUG = false;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -37,7 +37,7 @@ class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
-              //          'itemsLimit' => 10,
+            //          'itemsLimit' => 10,
 
             // настройки сайта
             'site'    => [
@@ -70,37 +70,40 @@ class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
                 // формат даты в RSS
                 // (указывать только если он отличается от стандартного D, d M Y H:i:s O!)
                 //                'date_format_rss' => 'D, d M Y H:i:s O',
+
+                // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
+                'pause'       => 1,
             ],
 
             // настройки витрины (режим RSS)
             'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feed/',
+                'url'           => '/feed/',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // css селектор для названия элемента (относительно элемента)
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки (относительно элемента)
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '',
+                'element-image' => '',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
 
             // настройка карточки элемента
@@ -123,7 +126,7 @@ class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.content-inner p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -138,7 +141,7 @@ class CORE_TrtTvRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '.jeg_post_tags',
+                'ignore-selectors'    => '.content-inner p:first-of-type, .jeg_post_tags',
             ]
         ];
 
