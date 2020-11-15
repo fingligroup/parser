@@ -17,14 +17,14 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 3 approved by
+// part 4
 class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.0';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -45,7 +45,7 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -63,7 +63,7 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0500',
+                'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -81,6 +81,10 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
 
                 // пауза между запросами в секундах (включается только, если сайт начинает блокировку)
                 //                'pause'       => 0,
+
+
+                // кодировка сайта (если определяется некорректно)
+                'encoding'    => 'UTF-8'
             ],
 
             // настройки витрины (режим HTML)
@@ -88,25 +92,29 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => '/chelyabinsk',
+                'url'                 => '/chelyabinsk/news',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '#maincolumn_full',
+                //                'container'           => '#maincolumn_full',
+                'container'           => '.itemContainer',
 
                 // css селектор для элемента витрины (относительно контейнера)
                 // (обязательный)
-                'element'             => 'ul li.odd',
+                //                'element'             => 'ul li.odd',
+                'element'             => '.catItemView',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                'element-link'        => 'h1 a',
+                //                'element-link'        => 'h1 a[href]',
+                'element-link'        => '.catItemHeader a[href]',
 
                 // css селектор для названия элемента
                 // (опционально)
-                'element-title'       => 'h1',
+                //                'element-title'       => 'h1',
+                'element-title'       => '.catItemHeader',
 
                 // css селектор для описания элемента
                 // (опционально)
@@ -118,7 +126,7 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => '.moduleItemDateCreated',
+                //                'element-date'        => '.moduleItemDateCreated',
             ],
 
             // настройка карточки элемента
@@ -128,27 +136,27 @@ class CORE_ProvinceRu_Chelyabinsk_Parser extends ParserCore implements ParserInt
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '1',
+                'container'           => '#k2Container',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '2',
+                'element-text'        => '#itemFullText',
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.itemDateCreated',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => '#itemIntroText',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => '.itemImageBlock .itemImage img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
