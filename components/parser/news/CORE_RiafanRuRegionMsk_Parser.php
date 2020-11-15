@@ -17,20 +17,20 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// CORE_XXX_Parser -> необходимо заменить на актуальное название парсера (так как называется ваш файл)
+// part 4
 class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.7';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
     // 2 - включен (очень подробный режим)
     // 3 - режим "зануда"
-    protected const DEBUG = 1;
+    protected const DEBUG = 0;
 
     public function __construct()
     {
@@ -38,17 +38,17 @@ class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterfac
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'       => 'rss',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            'itemsLimit' => 1,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
-            'site'       => [
+            'site'    => [
                 // протокол и домен
                 // (обязательный)
                 'url'         => 'https://riafan.ru',
@@ -84,80 +84,82 @@ class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterfac
             ],
 
             // настройки витрины (режим RSS)
-            'rss'        => [
+            'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
-                'url'                 => '/feeds',
+                'url'           => '/feeds',
 
                 // css селектор для элемента витрины (желательно от корня)
                 // (обязательный)
-                'element'             => 'rss > channel > item',
+                'element'       => 'rss > channel > item',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для названия элемента
                 // (обязательный)
-                'element-title'       => 'title',
+                'element-title' => 'title',
 
                 // css селектор для ссылки
                 // (обязательный)
-                'element-link'        => 'link',
+                'element-link'  => 'link',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => 'description',
+                //                'element-description' => 'description',
 
                 // css селектор для картинки элемента
                 // (опционально)
-                'element-image'       => 'enclosure[url]',
+                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => 'pubDate',
+                'element-date'  => 'pubDate',
             ],
 
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'       => [
+            'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => '/category/tape_news',
+                'url'          => '/category/tape_news',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
-                'container'           => '.news-list__wrapper',
+                //                'container'           => '.news-list__wrapper',
+                'container'    => 'news-list',
 
                 // css селектор для элемента витрины (относительно контейнера)
                 // (обязательный)
-                'element'             => '.news-list__item',
+                //                'element'             => '.news-list__item',
+                'element'      => 'a',
 
                 // ** дальнейшие css-селекторы указываются относительно element
 
                 // css селектор для ссылки на элемент !должен содержать конечный аттрибут href!
                 // (обязательный + должен быть обязательный атрибут, где хранится ссылка)
-                //                'element-link'        => '[href]',
-                'element-link'        => ':self[href]',
+                'element-link' => '[href]',
+                //                'element-link'        => ':self[href]',
 
                 // css селектор для названия элемента
                 // (опционально)
-                'element-title'       => '.text-block__title',
+                //                'element-title' => '',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '.text-block__description p',
+                //                'element-description' => '.text-block__description p',
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                 // (опционально)
-                'element-image'       => '.item__img-wrapper[src]',
+                //                'element-image'       => '.item__img-wrapper[src]',
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => '.item__date .time',
+                //                'element-date'        => '.item__date .time',
             ],
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element'    => [
+            'element' => [
 
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
@@ -169,20 +171,25 @@ class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterfac
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '.single_block_content_txt',
+                //                'element-text'        => '.single_block_content_txt',
+                'element-text'        => 'div[itemprop="articleBody"]',
+
+                // css селектор для названия элемента
+                // (опционально)
+                'element-title'       => 'h1.single_h',
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.post-meta__date',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '',
+                'element-description' => 'div[itemprop="articleBody"] p:nth-of-type(2)',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => 'div[itemprop="articleBody"] p:first-of-type img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -192,7 +199,7 @@ class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterfac
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно несколько через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => 'div[itemprop="articleBody"] p:nth-of-type(2)',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
