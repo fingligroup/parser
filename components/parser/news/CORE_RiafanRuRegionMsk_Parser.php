@@ -17,7 +17,7 @@ namespace app\components\parser\news;
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
 
-// part 4
+// part 4 image?
 class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterface
 {
     const USER_ID = 2;
@@ -109,7 +109,7 @@ class CORE_RiafanRuRegionMsk_Parser extends ParserCore implements ParserInterfac
 
                 // css селектор для картинки элемента
                 // (опционально)
-                'element-image' => 'enclosure[url]',
+//                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента
                 // (опционально)
