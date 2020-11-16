@@ -219,6 +219,16 @@ class CORE_AgroinvestorRu_Parser extends ParserCore implements ParserInterface
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
 
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                $date = $post->createDate;
+                $date->setTime(date('H'), date('i'));
+                $post->createDate = $date;
+            }
+        }
+
         return $posts;
     }
 }
