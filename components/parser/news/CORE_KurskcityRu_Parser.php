@@ -24,7 +24,7 @@ class CORE_KurskcityRu_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -45,7 +45,7 @@ class CORE_KurskcityRu_Parser extends ParserCore implements ParserInterface
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            //            'itemsLimit' => 10,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
             'site'    => [
@@ -114,7 +114,7 @@ class CORE_KurskcityRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                 // (опционально)
-                'element-image'       => '.post-inner a img[src]',
+                //                'element-image'       => '.post-inner a img[src]',
 
                 // css селектор для даты элемента
                 // (опционально)
@@ -148,7 +148,7 @@ class CORE_KurskcityRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => '.newsbigimg img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
