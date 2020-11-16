@@ -135,7 +135,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-date'        => 'news-item__datetime',
+                //                'element-date'        => 'news-item__datetime',
             ],
 
             // настройка карточки элемента
@@ -154,7 +154,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селектор для получения даты создания новости
                 // (заполняется только, если отсутствует в витрине)
-                'element-date'        => '',
+                'element-date'        => '.news-detail__datetime',
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
