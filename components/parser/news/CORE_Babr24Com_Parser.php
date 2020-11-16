@@ -63,7 +63,7 @@ class CORE_Babr24Com_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0900',
+                'time_zone'   => '+0300',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -113,7 +113,7 @@ class CORE_Babr24Com_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => 'pubDate',
+                //                'element-date'        => 'pubDate',
             ],
 
             // настройки витрины (режим HTML)
@@ -157,7 +157,7 @@ class CORE_Babr24Com_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'  => '.blab .date',
+                //                'element-date'  => '.blab .date',
             ],
 
             // настройка карточки элемента
@@ -178,7 +178,7 @@ class CORE_Babr24Com_Parser extends ParserCore implements ParserInterface
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.blab .date',
 
                 // css селектор для описания элемента
                 // (опционально)
