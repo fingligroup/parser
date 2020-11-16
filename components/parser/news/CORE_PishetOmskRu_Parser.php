@@ -63,7 +63,7 @@ class CORE_PishetOmskRu_Parser extends ParserCore implements ParserInterface
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'   => '+0600',
+                'time_zone'   => '+0000',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -176,6 +176,16 @@ class CORE_PishetOmskRu_Parser extends ParserCore implements ParserInterface
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                $date = $post->createDate;
+                $date->setTime(date('H'), date('i'));
+                $post->createDate = $date;
+            }
+        }
 
         return $posts;
     }
