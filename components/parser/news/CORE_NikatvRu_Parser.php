@@ -24,7 +24,7 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = false;
 
@@ -97,7 +97,7 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image' => 'enclosure[url]',
+                //                'element-image' => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -123,12 +123,12 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.redactor > p:first-of-type',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => '.redactor img:first-of-type[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -138,7 +138,7 @@ class CORE_NikatvRu_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => 'figcaption',
+                'ignore-selectors'    => '.redactor > p:first-of-type, figcaption',
             ]
         ];
 
