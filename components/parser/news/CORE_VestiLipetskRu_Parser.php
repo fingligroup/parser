@@ -23,7 +23,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
     const USER_ID = 2;
     const FEED_ID = 2;
     // поддерживаемая версия ядра
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -33,7 +33,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'    => 'HTML',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // (опционально)
@@ -96,7 +96,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => 'enclosure[url]',
+                //                'element-image'       => 'enclosure[url]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -131,7 +131,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
-                'element-image'       => '.news-item__image img[data-src]',
+                //                'element-image'       => '.news-item__image img[data-src]',
 
                 // css селектор для даты элемента (относительно элемента)
                 // (заполняется только, если отсутствует в карточке)
@@ -163,7 +163,7 @@ class CORE_VestiLipetskRu_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (заполняется только, если отсутствует в витрине)
-                'element-image'       => '',
+                'element-image'       => '.news-detail__image img[src]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
