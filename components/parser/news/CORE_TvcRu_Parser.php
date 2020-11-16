@@ -24,7 +24,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -114,7 +114,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                 // (опционально)
-                'element-image'       => 'img.main-news__img[src]',
+                //                'element-image'       => 'img.main-news__img[src]',
 
                 // css селектор для даты элемента
                 // (опционально)
@@ -128,27 +128,27 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'container'           => '.article__content',
+                'container'           => 'html',
 
                 // ** дальнейшие css-селекторы указываются относительно container
 
                 // css-селектор для основного текста * - данные внутри (картинки, ссылки) парсятся автоматически
                 // (можно несколько через запятую, если есть разные шаблоны новости)
                 // (обязательный)
-                'element-text'        => '.article__text',
+                'element-text'        => '.article__content .article__text',
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '.article__dates',
+                'element-date'        => '.article__content .article__dates',
 
                 // css селектор для описания элемента
                 // (опционально)
-                'element-description' => '.article__anons',
+                'element-description' => '.article__content .article__anons',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => 'meta[property="og:image"][content]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
@@ -162,7 +162,7 @@ class CORE_TvcRu_Parser extends ParserCore implements ParserInterface
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-before' => '',
+                //                'element-text-before' => 'meta[property="og:image"][content]',
             ]
         ];
 
