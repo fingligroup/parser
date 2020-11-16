@@ -16,6 +16,8 @@ namespace app\components\parser\news;
 
 use fingli\ParserCore\ParserCore;
 use app\components\parser\ParserInterface;
+use DateTimeImmutable;
+use DateTimeZone;
 
 // part 4
 class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore implements ParserInterface
@@ -38,17 +40,17 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
             // режимы работы парсера:
             // rss - RSS витрина
             // desktop - обычный сайт HTML
-            'mode'       => 'desktop',
+            'mode'    => 'desktop',
 
             // максимальное количество новостей, берушихся с витрины
             // ИСПОЛЬЗУЕТСЯ ТОЛЬКО В РЕЖИМЕ DEBUG
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-//            'itemsLimit' => 1,
+            //            'itemsLimit' => 1,
 
             // настройки сайта
-            'site'       => [
+            'site'    => [
                 // протокол и домен
                 // (обязательный)
                 'url'          => 'https://xn-----7kcbaaappfa8aiaab6b5abfccnfswff8beep3kqn.xn--p1ai',
@@ -67,7 +69,7 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
                 // узнать UTC и прописать его в формате +XX00
                 // Например, Москва: '+0300', Владивосток: '+1000'
                 // (опционально)
-                'time_zone'    => '+0300',
+                'time_zone'    => '+0000',
 
                 // формат даты для HTML витрины и карточки
                 // (см. https://www.php.net/manual/ru/datetime.format.php)
@@ -88,7 +90,7 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
             ],
 
             // настройки витрины (режим RSS)
-            'rss'        => [
+            'rss'     => [
                 // относительный URL где находится RSS
                 // (обязательный)
                 'url'           => '/feed/',
@@ -117,13 +119,13 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'  => 'pubDate',
+                //                'element-date'  => 'pubDate',
             ],
 
 
             // настройки витрины (режим HTML)
             // !!! заполняется, только при отсутствии витрины RSS !!!
-            'list'       => [
+            'list'    => [
                 // URL где находится витрина
                 // (обязательный)
                 'url'                 => '/',
@@ -162,12 +164,12 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
 
                 // css селектор для даты элемента
                 // (опционально)
-                'element-date'        => '.mg-blog-date a',
+                //                'element-date'        => '.mg-blog-date a',
             ],
 
             // настройка карточки элемента
             // *** в CSS-селекторах можно указывать несколько селекторов через запятую (например, если сайт имеет несколько шаблонов карточки новости). Селекторы должны быть уникальны, иначе возможны коллизии
-            'element'    => [
+            'element' => [
 
                 // css-селектор для контейнера карточки
                 // (можно несколько через запятую, если есть разные шаблоны новости)
@@ -183,7 +185,7 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
 
                 // css-селектор даты создания новости
                 // (опционально)
-                'element-date'        => '',
+                'element-date'        => '.mg-blog-post-box .mg-header .mg-blog-date',
 
                 // css селектор для описания элемента
                 // (опционально)
@@ -218,6 +220,77 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
         parent::__construct();
     }
 
+    protected
+    function getDateFromText(string $date, DateTimeZone $timeZone
+    )
+    : ?DateTimeImmutable {
+        [$monthWord, $day, $year] = explode(' ', $date);
+
+        $month = $this->getDateWithNumMonth($monthWord);
+
+        //        echo $day . ' ' . $month . ' ' . $year . ' ' . date('H') . ':' . date('i');
+
+        //        print_r($timeZone);
+
+        //        return DateTimeImmutable::createFromFormat('d m Y H:i', $day . ' ' . $month . ' ' . date('H') . ':' . date('i'), $timeZone);
+        //        return DateTimeImmutable::createFromFormat('d m Y H:i', $day . ' ' . $month . ' ' . date('H') . ':' . date('i'), new DateTimeZone('UTC'));
+        return DateTimeImmutable::createFromFormat('d m Y H:i', $day . ' ' . $month . ' ' . date('H') . ':' . date('i'), $timeZone);
+    }
+
+    private
+    function getDateWithNumMonth(string $date
+    )
+    : ?string {
+        $replaceMonth = [
+            'января'   => '01',
+            'февраля'  => '02',
+            'марта'    => '03',
+            'апреля'   => '04',
+            'мая'      => '05',
+            'июня'     => '06',
+            'июля'     => '07',
+            'августа'  => '08',
+            'сентября' => '09',
+            'октября'  => '10',
+            'ноября'   => '11',
+            'декабря'  => '12',
+            'январь'   => '01',
+            'февраль'  => '02',
+            'март'     => '03',
+            'апрель'   => '04',
+            'май'      => '05',
+            'июнь'     => '06',
+            'июль'     => '07',
+            'август'   => '08',
+            'сентябрь' => '09',
+            'октябрь'  => '10',
+            'ноябрь'   => '11',
+            'декабрь'  => '12',
+            'янв'      => '01',
+            'фев'      => '02',
+            'мар'      => '03',
+            'апр'      => '04',
+            'июн'      => '06',
+            'июл'      => '07',
+            'авг'      => '08',
+            'сен'      => '09',
+            'сент'     => '09',
+            'окт'      => '10',
+            'ноя'      => '11',
+            'дек'      => '12',
+        ];
+
+        // решаем вопрос с отсутствием года
+        if (!preg_match('/\d{4}/', $date))
+        {
+            $date .= ' ' . date('Y');
+        }
+
+        $date = trim(str_ireplace(array_keys($replaceMonth), $replaceMonth, $date));
+
+        return $date;
+    }
+
     public static function run()
     : array
     {
@@ -225,6 +298,18 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
 
         $items = $Parser->getItems();
         $posts = $Parser->getCards(array_keys($items));
+
+        // корректируем время под текущее
+        if (!empty($posts))
+        {
+            foreach ($posts as $post)
+            {
+                //                echo $post->createDate;
+                //                $date = $post->createDate;
+                //                $date->setTime(date('H'), date('i'));
+                //                $post->createDate = $date;
+            }
+        }
 
         return $posts;
     }
