@@ -24,7 +24,7 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     // 0 - отключен
     // 1 - включен
@@ -114,7 +114,7 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
 
                 // css селектор !должен содержать конечный аттрибут src! для картинки элемента
                 // (опционально)
-                'element-image' => '.image[src]',
+                //                'element-image' => '.image[src]',
 
                 // css селектор для даты элемента
                 // (опционально)
@@ -149,7 +149,7 @@ class CORE_Trk7Ru_Parser extends ParserCore implements ParserInterface
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
                 // (опционально)
-                'element-image'       => '',
+                'element-image'       => '.newsitem__media a[href]',
 
                 // css-селектор для цитаты
                 // (если не заполнено, то по умолчанию берутся теги: blockquote и q)
