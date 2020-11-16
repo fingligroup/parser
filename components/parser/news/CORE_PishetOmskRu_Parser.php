@@ -88,7 +88,7 @@ class CORE_PishetOmskRu_Parser extends ParserCore implements ParserInterface
             'list'    => [
                 // URL где находится витрина
                 // (обязательный)
-                'url'                 => 'https://pishet-omsk.ru/',
+                'url'                 => '/',
 
                 // css селектор для контейнера витрины
                 // (обязательный)
