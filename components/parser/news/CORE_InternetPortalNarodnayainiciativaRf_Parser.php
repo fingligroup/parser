@@ -45,7 +45,7 @@ class CORE_InternetPortalNarodnayainiciativaRf_Parser extends ParserCore impleme
             // в остальных случаях жестко задается ядром
             //
             // не забывайте отключать лимит при сдаче парсера!
-            'itemsLimit' => 1,
+//            'itemsLimit' => 1,
 
             // настройки сайта
             'site'       => [
