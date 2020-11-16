@@ -24,7 +24,7 @@ class CORE_Kam24Ru_Parser extends ParserCore implements ParserInterface
     const FEED_ID = 2;
     // поддерживаемая версия ядра
     // (НЕ ИЗМЕНЯТЬ САМОСТОЯТЕЛЬНО!)
-    const FOR_CORE_VERSION = '1.8';
+    const FOR_CORE_VERSION = '1.14';
     // дебаг-режим (только для разработки) - выводит информацию о действиях парсера
     protected const DEBUG = 0;
 
@@ -124,7 +124,7 @@ class CORE_Kam24Ru_Parser extends ParserCore implements ParserInterface
 
                 // css селектор для описания элемента (относительно элемента)
                 // (заполняется только, если отсутствует в витрине)
-                'element-description' => '',
+                'element-description' => '.announce',
 
                 // css селектор для получения картинки
                 // !должен содержать конечный аттрибут src! (например: img.main-image[src])
@@ -139,11 +139,11 @@ class CORE_Kam24Ru_Parser extends ParserCore implements ParserInterface
                 // игнорируемые css-селекторы (будут вырезаться из результата)
                 // (можно через запятую)
                 // (опционально)
-                'ignore-selectors'    => '',
+                'ignore-selectors'    => '.announce',
 
                 // css-селекторы которые будут вставлятся в начало текста новости element-text (селекторы ищутся от корня)
                 // (опционально)
-                'element-text-before' => '.fotorama',
+                'element-text-before' => '',
             ]
         ];
 
